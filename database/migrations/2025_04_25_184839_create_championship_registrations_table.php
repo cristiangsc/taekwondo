@@ -15,8 +15,9 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->foreignId('championship_id')->constrained()->onDelete('cascade');
-            $table->date('registration_date');
             $table->foreignId('championship_category_id')->constrained()->onDelete('cascade');
+            $table->date('registration_date');
+            $table->decimal('registration_fee')->nullable();
             $table->enum('mode',['Kyorugi','Poomsae','Kyukpa'])->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();
