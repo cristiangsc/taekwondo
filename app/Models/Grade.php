@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class Grade extends Model
@@ -14,9 +15,9 @@ class Grade extends Model
         'order',
     ];
 
-    public function studentGrades(): HasMany
+    public function students(): BelongsToMany
     {
-        return $this->hasMany(StudentGrade::class);
+        return $this->belongsToMany(Student::class, 'student_grades')->withPivot('obtained_date', 'notes')->withTimestamps();
     }
 
     public function previousExams(): HasMany

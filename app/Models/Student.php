@@ -4,7 +4,9 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
+use Illuminate\Database\Eloquent\Casts\Attribute;
 
 class Student extends Model
 {
@@ -22,15 +24,35 @@ class Student extends Model
         'use_image',
     ];
 
+    protected $appends = [
+        'full_name',
+        'age',
+    ];
+
+    protected $casts = [
+        'birth_date' => 'date',
+        'use_image' => 'boolean',
+    ];
+
+    public function age(): Attribute
+    {
+        return Attribute::make(
+            get: fn () => $this->birth_date?->age,
+        );
+    }
+
+    protected function fullName(): Attribute
+    {
+        return Attribute::make(
+            get: fn ($value, $attributes) =>  $attributes['name']." ".$attributes['last_name_paternal']." ".$attributes['last_name_maternal'],
+        );
+    }
+
     public function representative(): BelongsTo
     {
         return $this->belongsTo(Representative::class);
     }
 
-    public function studentGrades(): HasMany
-    {
-        return $this->hasMany(StudentGrade::class)->orderBy('obtained_date');
-    }
 
     public function exams(): HasMany
     {
@@ -47,18 +69,29 @@ class Student extends Model
         return $this->hasMany(ChampionshipRegistration::class);
     }
 
-    public function currentGrade(): ?BelongsTo
+    public function grades(): BelongsToMany
     {
-        $lastGrade = $this->studentGrades()->latest('obtained_date')->first();
-
-        return $lastGrade ? $lastGrade->grade() : null;
+        return $this->belongsToMany(Grade::class, 'student_grades')
+            ->withPivot('obtained_date', 'notes')
+            ->withTimestamps();
     }
+
+    public function currentGrade(): ?Grade
+    {
+        return $this->grades->sortByDesc('pivot_obtained_date')->first();
+    }
+
 
     public function currentGradeObtainedDate(): ?\Illuminate\Support\Carbon
     {
-        $lastGrade = $this->studentGrades()->latest('obtained_date')->first();
+        $lastGrade = $this->grades()->orderByDesc('pivot_obtained_date')->first();
 
-        return $lastGrade ? $lastGrade->obtained_date : null;
+        return $lastGrade?->pivot->obtained_date;
+    }
+
+    public function testimonials(): HasMany
+    {
+        return $this->hasMany(Testimonial::class);
     }
 
 }
