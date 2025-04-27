@@ -24,6 +24,25 @@ class Student extends Model
         'use_image',
     ];
 
+    protected function name(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => mb_strtoupper($value, 'UTF-8'),
+        );
+    }
+    protected function lastNamePaternal(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => mb_strtoupper($value, 'UTF-8'),
+        );
+    }
+    protected function lastNameMaternal(): Attribute
+    {
+        return Attribute::make(
+            set: fn($value) => mb_strtoupper($value, 'UTF-8'),
+        );
+    }
+
     protected $appends = [
         'full_name',
         'age',
