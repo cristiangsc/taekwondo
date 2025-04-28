@@ -13,7 +13,6 @@ return new class extends Migration
     {
         Schema::create('testimonials', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->text('content');
             $table->boolean('is_approved')->default(false);

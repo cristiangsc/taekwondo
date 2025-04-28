@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListGrades extends ListRecords
 {
     protected static string $resource = GradeResource::class;
+    protected static ?string $title = 'Grados';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Registrar grado'),
         ];
     }
 }

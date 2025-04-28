@@ -6,9 +6,12 @@ use App\Filament\Resources\PartnershipResource\Pages;
 use App\Filament\Resources\PartnershipResource\RelationManagers;
 use App\Models\Partnership;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
@@ -19,20 +22,36 @@ class PartnershipResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Alianzas';
+    protected static ?string $navigationGroup = 'Página web';
+    protected static ?string $breadcrumb = 'Alianzas';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('description')
-                    ->maxLength(255)
-                    ->default(null),
                 Forms\Components\TextInput::make('url')
+                    ->label('URL')
                     ->maxLength(255)
                     ->default(null),
+                RichEditor::make('description')
+                    ->required()
+                    ->columnSpanFull()
+                    ->label('Contenido'),
+                SpatieMediaLibraryFileUpload::make('imagenes')
+                    ->label('Imágenes')
+                    ->collection('alianza')
+                    ->image()
+                    ->multiple()
+                    ->responsiveImages()
+                    ->imageEditor()
+                    ->openable()
+                    ->optimize('jpg')
+                    ->resize(30)
+                    ->columnSpanFull()
             ]);
     }
 
@@ -41,25 +60,37 @@ class PartnershipResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('description')
+                    ->label('Descripción')
+                    ->limit(50)
+                    ->html()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('url')
+                    ->label('URL')
                     ->searchable(),
+                SpatieMediaLibraryImageColumn::make('imagenes')
+                    ->label('Imágenes')
+                    ->circular()
+                    ->collection('alianza'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado el')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
+            ])->defaultSort('created_at', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label(''),
+                Tables\Actions\DeleteAction::make()
+                    ->modalHeading('Está Eliminando la Alianza')
+                    ->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -68,12 +99,6 @@ class PartnershipResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

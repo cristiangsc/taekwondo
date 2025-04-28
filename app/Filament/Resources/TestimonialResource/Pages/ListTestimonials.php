@@ -9,11 +9,14 @@ use Filament\Resources\Pages\ListRecords;
 class ListTestimonials extends ListRecords
 {
     protected static string $resource = TestimonialResource::class;
+    protected static ?string $title = 'Testimonios';
+
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Ingresar testimonio'),
         ];
     }
 }

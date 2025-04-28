@@ -17,7 +17,7 @@ return new class extends Migration
             $table->date('exam_date');
             $table->foreignId('previous_grade_id')->constrained('grades')->onDelete('restrict');
             $table->foreignId('current_grade_id')->nullable()->constrained('grades')->onDelete('set null');
-            $table->enum('result',['aprobado','reprobado','pendiente'])->nullable();
+            $table->enum('result',['Aprobado','Reprobado','Pendiente'])->nullable();
             $table->float('score')->nullable();
             $table->text('notes')->nullable();
             $table->timestamps();

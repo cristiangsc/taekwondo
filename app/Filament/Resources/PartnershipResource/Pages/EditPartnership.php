@@ -9,11 +9,14 @@ use Filament\Resources\Pages\EditRecord;
 class EditPartnership extends EditRecord
 {
     protected static string $resource = PartnershipResource::class;
+    protected static ?string $title = 'Editar Alianza';
+
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->modalHeading('Eliminar Alianza'),
         ];
     }
 }

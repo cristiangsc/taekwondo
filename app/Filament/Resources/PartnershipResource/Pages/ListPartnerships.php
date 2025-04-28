@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListPartnerships extends ListRecords
 {
     protected static string $resource = PartnershipResource::class;
+    protected static ?string $title = 'Alianzas';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Crear Alianza')
         ];
     }
 }

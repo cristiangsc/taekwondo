@@ -9,11 +9,13 @@ use Filament\Resources\Pages\EditRecord;
 class EditNews extends EditRecord
 {
     protected static string $resource = NewsResource::class;
+    protected static ?string $title = 'Editar noticia';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->modalHeading('Está Eliminando la noticia'),
         ];
     }
 }

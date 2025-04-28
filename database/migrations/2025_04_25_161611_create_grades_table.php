@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('grades', function (Blueprint $table) {
             $table->id();
-            $table->enum('type', ['kup', 'dan']);
+            $table->enum('type', ['Kup', 'Dan']);
             $table->integer('level');
             $table->string('name');
             $table->integer('order');

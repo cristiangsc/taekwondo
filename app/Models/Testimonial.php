@@ -7,10 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Testimonial extends Model
 {
-    protected $fillable = ['name', 'student_id', 'content', 'is_approved'];
+    protected $fillable = ['student_id', 'content', 'is_approved'];
 
     protected $casts = [
         'is_approved' => 'boolean',
+    ];
+
+    protected $attributes = [
+        'is_approved' => false,
     ];
 
     public function student(): BelongsTo

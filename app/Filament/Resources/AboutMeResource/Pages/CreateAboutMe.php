@@ -9,4 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateAboutMe extends CreateRecord
 {
     protected static string $resource = AboutMeResource::class;
+    protected static ?string $title = 'Crear antecedentes';
+
+
 }

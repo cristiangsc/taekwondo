@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreatePartnership extends CreateRecord
 {
     protected static string $resource = PartnershipResource::class;
+    protected static ?string $title = 'Crear Alianza';
 }

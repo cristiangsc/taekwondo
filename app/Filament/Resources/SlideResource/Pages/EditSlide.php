@@ -10,10 +10,13 @@ class EditSlide extends EditRecord
 {
     protected static string $resource = SlideResource::class;
 
+    protected static ?string $title = 'Editar Carrusel';
+
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->modalHeading('Eliminar Carrusel'),
         ];
     }
 }

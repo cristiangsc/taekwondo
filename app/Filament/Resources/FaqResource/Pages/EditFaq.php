@@ -9,6 +9,7 @@ use Filament\Resources\Pages\EditRecord;
 class EditFaq extends EditRecord
 {
     protected static string $resource = FaqResource::class;
+    protected static ?string $title = 'Editar pregunta frecuentes';
 
     protected function getHeaderActions(): array
     {

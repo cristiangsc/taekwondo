@@ -16,4 +16,16 @@ class Slide extends Model implements HasMedia
         'subtitle',
         'is_active',
     ];
+    protected $casts = [
+        'is_active' => 'boolean',
+    ];
+    protected static function boot(): void
+    {
+        parent::boot();
+
+        static::creating(function ($slide) {
+            $slide->is_active = true;
+        });
+    }
+
 }

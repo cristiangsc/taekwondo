@@ -9,11 +9,14 @@ use Filament\Resources\Pages\ListRecords;
 class ListAboutMes extends ListRecords
 {
     protected static string $resource = AboutMeResource::class;
+    protected static ?string $title = 'Acerca de';
+    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Ingresar antecedentes')
         ];
     }
 }

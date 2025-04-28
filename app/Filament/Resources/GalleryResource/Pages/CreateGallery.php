@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateGallery extends CreateRecord
 {
     protected static string $resource = GalleryResource::class;
+    protected static ?string $title = 'Crear galería y subir imágenes';
 }

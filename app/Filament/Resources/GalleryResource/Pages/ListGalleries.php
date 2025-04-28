@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListGalleries extends ListRecords
 {
     protected static string $resource = GalleryResource::class;
+    protected static ?string $title = 'Galerías';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Crear galería y subir imágenes'),
         ];
     }
 }

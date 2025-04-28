@@ -19,27 +19,40 @@ class ExamResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Exámenes';
+    protected static ?string $breadcrumb = 'Exámenes';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('student_id')
+                    ->label('Estudiante')
                     ->relationship('student', 'name')
                     ->required(),
                 Forms\Components\DatePicker::make('exam_date')
+                    ->label('Fecha del examen')
                     ->required(),
                 Forms\Components\Select::make('previous_grade_id')
+                    ->label('Grado anterior')
                     ->relationship('previousGrade', 'name')
                     ->required(),
                 Forms\Components\Select::make('current_grade_id')
+                    ->label('Grado actual')
                     ->relationship('currentGrade', 'name')
                     ->default(null),
-                Forms\Components\TextInput::make('result'),
+                Forms\Components\Select::make('result')
+                    ->label('Resultado')
+                    ->options([
+                        'Aprobado' => 'Aprobado',
+                        'Reprobado' => 'Reprobado',
+                        'Pendiente' => 'Pendiente',
+                    ]),
                 Forms\Components\TextInput::make('score')
+                    ->label('Puntaje')
                     ->numeric()
                     ->default(null),
                 Forms\Components\Textarea::make('notes')
+                    ->label('Notas')
                     ->columnSpanFull(),
             ]);
     }
@@ -49,48 +62,49 @@ class ExamResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('student.name')
-                    ->numeric()
+                    ->label('Estudiante')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('exam_date')
+                    ->label('Fecha del examen')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('previousGrade.name')
+                    ->label('Grado anterior')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('currentGrade.name')
+                    ->label('Grado actual')
                     ->numeric()
                     ->sortable(),
-                Tables\Columns\TextColumn::make('result'),
+                Tables\Columns\TextColumn::make('result')
+                    ->label('Resultado'),
                 Tables\Columns\TextColumn::make('score')
+                    ->label('Puntaje')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Creado en')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Actualizado en')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
+            ])->defaultSort('exam_date', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label('Editar examen'),
+                Tables\Actions\DeleteAction::make()
+                    ->label('Eliminar examen')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

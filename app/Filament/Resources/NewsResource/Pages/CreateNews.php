@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateNews extends CreateRecord
 {
     protected static string $resource = NewsResource::class;
+    protected static ?string $title = 'Redactar noticia';
 }

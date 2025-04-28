@@ -3,15 +3,13 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\GradeResource\Pages;
-use App\Filament\Resources\GradeResource\RelationManagers;
 use App\Models\Grade;
+use App\typeGrade;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class GradeResource extends Resource
 {
@@ -19,20 +17,27 @@ class GradeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationLabel = 'Grados';
+    protected static ?string $breadcrumb = 'Grados';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
-                Forms\Components\TextInput::make('type')
+                Forms\Components\Select::make('type')
+                    ->label('Tipo')
+                    ->options(collect(typeGrade::cases())->pluck('value', 'value'))
                     ->required(),
                 Forms\Components\TextInput::make('level')
+                    ->label('Nivel')
+                    ->maxValue(10)
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre del grado')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('order')
+                    ->label('Orden de importancia')
                     ->required()
                     ->numeric(),
             ]);
@@ -42,29 +47,38 @@ class GradeResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('type'),
+                Tables\Columns\TextColumn::make('type')
+                    ->label('Tipo')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('level')
+                    ->label('Nivel')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre del grado')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('order')
+                    ->label('Orden de importancia')
                     ->numeric()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Fecha de creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Fecha de actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->label(''),
+                Tables\Actions\DeleteAction::make()
+                ->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -73,12 +87,6 @@ class GradeResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {
