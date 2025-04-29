@@ -2,9 +2,9 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\TypeGrade;
 use App\Filament\Resources\GradeResource\Pages;
 use App\Models\Grade;
-use App\typeGrade;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -25,7 +25,7 @@ class GradeResource extends Resource
             ->schema([
                 Forms\Components\Select::make('type')
                     ->label('Tipo')
-                    ->options(collect(typeGrade::cases())->pluck('value', 'value'))
+                    ->options(collect(TypeGrade::cases())->pluck('value', 'value'))
                     ->required(),
                 Forms\Components\TextInput::make('level')
                     ->label('Nivel')

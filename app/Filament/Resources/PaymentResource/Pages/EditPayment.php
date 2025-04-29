@@ -9,11 +9,13 @@ use Filament\Resources\Pages\EditRecord;
 class EditPayment extends EditRecord
 {
     protected static string $resource = PaymentResource::class;
+    protected static ?string $title = 'Editar pago';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->modalHeading('Eliminar registro del pago'),
         ];
     }
 }

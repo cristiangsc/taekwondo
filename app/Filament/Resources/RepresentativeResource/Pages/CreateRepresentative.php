@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateRepresentative extends CreateRecord
 {
     protected static string $resource = RepresentativeResource::class;
+    protected static ?string $title = 'Registrar Representante y/o Apoderado';
 }

@@ -1,8 +1,8 @@
 <?php
 
-namespace App;
+namespace App\Enums;
 
-enum typeGrade: string
+enum TypeGrade: string
 {
     case Kup = 'Kup';
     case Dan = 'Dan';

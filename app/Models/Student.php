@@ -11,6 +11,7 @@ use Illuminate\Database\Eloquent\Casts\Attribute;
 class Student extends Model
 {
     protected $fillable = [
+        'rut',
         'name',
         'last_name_paternal',
         'last_name_maternal',
@@ -22,6 +23,7 @@ class Student extends Model
         'gender',
         'representative_id',
         'use_image',
+        'admission_date',
     ];
 
     protected function name(): Attribute
@@ -50,6 +52,7 @@ class Student extends Model
 
     protected $casts = [
         'birth_date' => 'date',
+        'admission_date' => 'date',
         'use_image' => 'boolean',
     ];
 

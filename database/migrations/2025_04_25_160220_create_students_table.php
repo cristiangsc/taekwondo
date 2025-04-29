@@ -13,6 +13,7 @@ return new class extends Migration
     {
         Schema::create('students', function (Blueprint $table) {
             $table->id();
+            $table->string('rut',12)->unique();
             $table->string('name');
             $table->string('last_name_paternal');
             $table->string('last_name_maternal');
@@ -21,7 +22,7 @@ return new class extends Migration
             $table->string('phone_number')->nullable();
             $table->string('phone_number_emergency')->nullable();
             $table->string('email')->nullable()->unique();
-            $table->enum('gender', ['male', 'female', 'other']);
+            $table->enum('gender', ['Masculino', 'Femenino', 'Otro']);
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->onDelete('set null');
             $table->boolean('use_image')->default(false);
             $table->date('admission_date');

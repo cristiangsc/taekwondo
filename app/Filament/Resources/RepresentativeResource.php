@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Relacion;
 use App\Filament\Resources\RepresentativeResource\Pages;
-use App\Filament\Resources\RepresentativeResource\RelationManagers;
 use App\Models\Representative;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class RepresentativeResource extends Resource
 {
@@ -25,18 +24,26 @@ class RepresentativeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre completo')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('relationship'),
+                Forms\Components\Select::make('relationship')
+                    ->label('Relación')
+                    ->options(collect(Relacion::cases())->pluck('value', 'value'))
+                    ->required(),
                 Forms\Components\TextInput::make('phone_number')
+                    ->label('Teléfono')
                     ->tel()
-                    ->maxLength(255)
+                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                    ->minLength(9)
+                    ->maxLength(11)
                     ->default(null),
                 Forms\Components\TextInput::make('email')
                     ->email()
                     ->maxLength(255)
                     ->default(null),
                 Forms\Components\Textarea::make('address')
+                    ->label('Dirección')
                     ->columnSpanFull(),
             ]);
     }
@@ -46,17 +53,32 @@ class RepresentativeResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre completo')
+                    ->sortable()
                     ->searchable(),
-                Tables\Columns\TextColumn::make('relationship'),
+                Tables\Columns\TextColumn::make('relationship')
+                ->label('Relación')
+                    ->sortable()
+                    ->searchable(),
                 Tables\Columns\TextColumn::make('phone_number')
+                    ->label('Teléfono')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->label('Email')
+                    ->sortable()
                     ->searchable(),
+                Tables\Columns\TextColumn::make('address')
+                    ->label('Dirección')
+                    ->sortable()
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Fecha de creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Fecha de actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -65,7 +87,10 @@ class RepresentativeResource extends Resource
                 //
             ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->label(''),
+                Tables\Actions\DeleteAction::make()
+                ->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -74,12 +99,6 @@ class RepresentativeResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {
