@@ -9,11 +9,15 @@ use Filament\Resources\Pages\ListRecords;
 class ListChampionshipCategories extends ListRecords
 {
     protected static string $resource = ChampionshipCategoryResource::class;
+    protected static ?string $title = 'Categorías de campeonato';
+
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Registrar categoría')
+            ->modalHeading('Registrar categoría')
         ];
     }
 }

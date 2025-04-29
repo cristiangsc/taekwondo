@@ -17,12 +17,14 @@ return new class extends Migration
             $table->string('name');
             $table->string('last_name_paternal');
             $table->string('last_name_maternal');
+            $table->string('full_name')->virtualAs("concat(name,' ',last_name_paternal,' ',last_name_maternal)");
             $table->date('birth_date');
             $table->text('address')->nullable();
             $table->string('phone_number')->nullable();
             $table->string('phone_number_emergency')->nullable();
             $table->string('email')->nullable()->unique();
             $table->enum('gender', ['Masculino', 'Femenino', 'Otro']);
+            $table->foreignId('grade_id')->nullable()->constrained('grades')->onDelete('set null');
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->onDelete('set null');
             $table->boolean('use_image')->default(false);
             $table->date('admission_date');

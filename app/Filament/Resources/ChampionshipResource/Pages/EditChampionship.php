@@ -9,11 +9,13 @@ use Filament\Resources\Pages\EditRecord;
 class EditChampionship extends EditRecord
 {
     protected static string $resource = ChampionshipResource::class;
+    protected static ?string $title = 'Editar campeonato';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\DeleteAction::make(),
+            Actions\DeleteAction::make()
+            ->modalHeading('Eliminar campeonato'),
         ];
     }
 }

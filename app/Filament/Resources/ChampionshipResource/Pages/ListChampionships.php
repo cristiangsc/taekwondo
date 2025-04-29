@@ -9,11 +9,13 @@ use Filament\Resources\Pages\ListRecords;
 class ListChampionships extends ListRecords
 {
     protected static string $resource = ChampionshipResource::class;
+    protected static ?string $title = 'Campeonatos';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Registrar campeonato'),
         ];
     }
 }

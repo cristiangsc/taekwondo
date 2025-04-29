@@ -10,6 +10,7 @@ use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 
 
@@ -50,6 +51,11 @@ class StudentResource extends Resource
                             ->label('Género')
                             ->options(collect(Gender::cases())->pluck('value', 'value'))
                             ->required(),
+                        Forms\Components\Select::make('grade_id')
+                            ->label('Grado')
+                            ->relationship('grade', 'name')
+                            ->required()
+                            ->default(null),
                     ]),
                 Forms\Components\Section::make('Datos de Contacto')
                     ->columns(3)
@@ -107,11 +113,11 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name_paternal')
-                    ->label('Apellido Paterno')
+                    ->label('Paterno')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('last_name_maternal')
-                    ->label('Apellido Materno')
+                    ->label('Materno')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('birth_date')
@@ -123,26 +129,38 @@ class StudentResource extends Resource
                     ->label('Edad')
                     ->alignCenter()
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->badge()
+                    ->color(fn (string $state): string => $state >= 18 ? 'success' : 'danger'),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->alignCenter()
                     ->label('Teléfono')
                     ->searchable(),
+                TextColumn::make('grade.name')
+                    ->label('Grado')
+                    ->alignCenter()
+                    ->sortable()
+                    ->searchable()
+                    ->badge(),
                 Tables\Columns\TextColumn::make('phone_number_emergency')
                     ->label('Teléfono de Emergencia')
                     ->alignCenter()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('gender')
                     ->label('Género')
                     ->alignCenter()
                     ->sortable()
-                    ->searchable(),
+                    ->searchable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('representative.name')
                     ->label('Representante y/o Apoderado')
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('use_image')
                     ->label('¿Autoriza imagen?')
                     ->alignCenter()
@@ -151,7 +169,8 @@ class StudentResource extends Resource
                     ->label('Fecha de Ingreso')
                     ->alignCenter()
                     ->date()
-                    ->sortable(),
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Fecha de creación')
                     ->alignCenter()

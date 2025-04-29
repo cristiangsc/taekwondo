@@ -14,7 +14,8 @@ return new class extends Migration
         Schema::create('championship_categories', function (Blueprint $table) {
             $table->id();
             $table->string('name');
-            $table->enum('types',['Gup','Dan']);
+            $table->enum('types',['Kup','Dan']);
+            $table->string('category')->virtualAs("concat(name,' - ',types)");
             $table->timestamps();
         });
     }

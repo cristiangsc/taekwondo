@@ -3,15 +3,12 @@
 namespace App\Filament\Resources;
 
 use App\Filament\Resources\ChampionshipResource\Pages;
-use App\Filament\Resources\ChampionshipResource\RelationManagers;
 use App\Models\Championship;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
 
 class ChampionshipResource extends Resource
 {
@@ -19,22 +16,30 @@ class ChampionshipResource extends Resource
     protected static ?string $navigationGroup = 'Championships';
     protected static ?string $navigationLabel = 'Campeonatos';
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $breadcrumb = 'Campeonatos';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre del Campeonato')
                     ->required()
+                    ->columnSpan('full')
                     ->maxLength(255),
                 Forms\Components\DatePicker::make('start_date')
+                    ->label('Fecha de Inicio')
                     ->required(),
                 Forms\Components\DatePicker::make('end_date')
+                    ->label('Fecha de Término')
                     ->required(),
                 Forms\Components\TextInput::make('location')
+                    ->label('Ubicación')
                     ->maxLength(255)
                     ->default(null),
                 Forms\Components\TextInput::make('year')
+                    ->label('Año')
+                    ->numeric()
                     ->required(),
             ]);
     }
@@ -44,30 +49,38 @@ class ChampionshipResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre del Campeonato')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('start_date')
+                    ->label('Fecha de Inicio')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('end_date')
+                    ->label('Fecha de Término')
                     ->date()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('location')
+                    ->label('Ubicación')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('year'),
+                Tables\Columns\TextColumn::make('year')
+                    ->label('Año')
+                    ->sortable(),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Fecha de Creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Fecha de Actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
+            ])->defaultSort('start_date', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                    ->label(''),
+                Tables\Actions\DeleteAction::make()
+                    ->label('')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -76,12 +89,6 @@ class ChampionshipResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {

@@ -24,6 +24,7 @@ class Student extends Model
         'representative_id',
         'use_image',
         'admission_date',
+        'grade_id'
     ];
 
     protected function name(): Attribute
@@ -46,7 +47,6 @@ class Student extends Model
     }
 
     protected $appends = [
-        'full_name',
         'age',
     ];
 
@@ -60,13 +60,6 @@ class Student extends Model
     {
         return Attribute::make(
             get: fn () => $this->birth_date?->age,
-        );
-    }
-
-    protected function fullName(): Attribute
-    {
-        return Attribute::make(
-            get: fn ($value, $attributes) =>  $attributes['name']." ".$attributes['last_name_paternal']." ".$attributes['last_name_maternal'],
         );
     }
 
@@ -89,6 +82,11 @@ class Student extends Model
     public function championshipRegistrations(): HasMany
     {
         return $this->hasMany(ChampionshipRegistration::class);
+    }
+
+    public function grade(): BelongsTo
+    {
+        return $this->belongsTo(Grade::class)->orderByDesc('order');
     }
 
     public function grades(): BelongsToMany

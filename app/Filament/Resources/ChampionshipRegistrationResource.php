@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\Mode;
 use App\Filament\Resources\ChampionshipRegistrationResource\Pages;
-use App\Filament\Resources\ChampionshipRegistrationResource\RelationManagers;
 use App\Models\ChampionshipRegistration;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class ChampionshipRegistrationResource extends Resource
 {
@@ -19,28 +18,38 @@ class ChampionshipRegistrationResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Championships';
-    protected static ?string $navigationLabel = 'Inscripciones Campeonatos';
+    protected static ?string $navigationLabel = 'Inscripción Campeonato';
+    protected static ?string $breadcrumb = 'Inscripciones';
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\Select::make('student_id')
-                    ->relationship('student', 'name')
+                    ->label('Nombre del Estudiante')
+                    ->relationship('student', 'full_name')
                     ->required(),
                 Forms\Components\Select::make('championship_id')
+                    ->label('Nombre del Campeonato')
                     ->relationship('championship', 'name')
                     ->required(),
-                Forms\Components\TextInput::make('championship_category_id')
-                    ->required()
-                    ->numeric(),
+                Forms\Components\Select::make('championship_category_id')
+                    ->label('Categoría')
+                    ->relationship('category', 'category')
+                    ->required(),
                 Forms\Components\DatePicker::make('registration_date')
+                    ->label('Fecha de Inscripción')
                     ->required(),
                 Forms\Components\TextInput::make('registration_fee')
+                    ->label('Cuota de Inscripción')
                     ->numeric()
                     ->default(null),
-                Forms\Components\TextInput::make('mode'),
+                Forms\Components\Select::make('mode')
+                    ->label('Modalidad')
+                    ->options(collect(Mode::cases())->pluck('value', 'value'))
+                    ->required(),
                 Forms\Components\Textarea::make('notes')
+                    ->label('Observaciones')
                     ->columnSpanFull(),
             ]);
     }
@@ -73,25 +82,18 @@ class ChampionshipRegistrationResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
-            ])
-            ->filters([
-                //
-            ])
+            ])->defaultSort('registration_date', 'desc')
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->label(''),
+                Tables\Actions\DeleteAction::make()
+                ->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

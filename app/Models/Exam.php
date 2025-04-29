@@ -14,7 +14,20 @@ class Exam extends Model
         'current_grade_id',
         'result',
         'notes',
+        'score',
     ];
+
+    protected static function booted(): void
+    {
+        static::saved(function (Exam $exam) {
+            if ($exam->result === 'Aprobado') {
+                $exam->student->update([
+                    'grade_id' => $exam->current_grade_id
+                ]);
+            }
+        });
+    }
+
 
     public function student(): BelongsTo
     {
@@ -23,11 +36,11 @@ class Exam extends Model
 
     public function previousGrade(): BelongsTo
     {
-        return $this->belongsTo(Grade::class, 'previous_grade_id');
+        return $this->belongsTo(Grade::class, 'previous_grade_id')->orderByDesc('order');
     }
 
     public function currentGrade(): BelongsTo
     {
-        return $this->belongsTo(Grade::class, 'current_grade_id');
+        return $this->belongsTo(Grade::class, 'current_grade_id')->orderByDesc('order');
     }
 }

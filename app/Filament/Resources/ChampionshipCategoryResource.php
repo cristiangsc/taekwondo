@@ -2,16 +2,15 @@
 
 namespace App\Filament\Resources;
 
+use App\Enums\TypeGrade;
 use App\Filament\Resources\ChampionshipCategoryResource\Pages;
-use App\Filament\Resources\ChampionshipCategoryResource\RelationManagers;
 use App\Models\ChampionshipCategory;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
+
 
 class ChampionshipCategoryResource extends Resource
 {
@@ -20,15 +19,20 @@ class ChampionshipCategoryResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Championships';
     protected static ?string $navigationLabel = 'Categorías';
+    protected static ?string $breadcrumb = 'Categorías';
+
 
     public static function form(Form $form): Form
     {
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->label('Nombre Categoría')
                     ->required()
                     ->maxLength(255),
-                Forms\Components\TextInput::make('types')
+                Forms\Components\Select::make('types')
+                    ->label('Tipos de Categoría')
+                    ->options(collect(TypeGrade::cases())->pluck('value', 'value'))
                     ->required(),
             ]);
     }
@@ -38,22 +42,28 @@ class ChampionshipCategoryResource extends Resource
         return $table
             ->columns([
                 Tables\Columns\TextColumn::make('name')
+                    ->label('Nombre Categoría')
                     ->searchable(),
-                Tables\Columns\TextColumn::make('types'),
+                Tables\Columns\TextColumn::make('types')
+                    ->label('Tipo Categoría'),
                 Tables\Columns\TextColumn::make('created_at')
+                    ->label('Fecha de Creación')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('updated_at')
+                    ->label('Fecha de Actualización')
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
-                Tables\Actions\EditAction::make(),
+                Tables\Actions\EditAction::make()
+                ->label('')
+                ->modalHeading('Editar Categoría'),
+                Tables\Actions\DeleteAction::make()
+                ->label('')
+                ->modalHeading('Eliminar Categoría')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -62,19 +72,13 @@ class ChampionshipCategoryResource extends Resource
             ]);
     }
 
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
-    }
 
     public static function getPages(): array
     {
         return [
             'index' => Pages\ListChampionshipCategories::route('/'),
-            'create' => Pages\CreateChampionshipCategory::route('/create'),
-            'edit' => Pages\EditChampionshipCategory::route('/{record}/edit'),
+//            'create' => Pages\CreateChampionshipCategory::route('/create'),
+//            'edit' => Pages\EditChampionshipCategory::route('/{record}/edit'),
         ];
     }
 }

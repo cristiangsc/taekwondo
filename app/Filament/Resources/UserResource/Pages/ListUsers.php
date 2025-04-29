@@ -9,11 +9,14 @@ use Filament\Resources\Pages\ListRecords;
 class ListUsers extends ListRecords
 {
     protected static string $resource = UserResource::class;
+    protected static ?string $title = 'Usuarios';
 
     protected function getHeaderActions(): array
     {
         return [
-            Actions\CreateAction::make(),
+            Actions\CreateAction::make()
+            ->label('Registrar usuario')
+            ->modalHeading('Registrar usuario'),
         ];
     }
 }

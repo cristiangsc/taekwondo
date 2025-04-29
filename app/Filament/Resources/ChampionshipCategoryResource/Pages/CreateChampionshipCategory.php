@@ -9,4 +9,5 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateChampionshipCategory extends CreateRecord
 {
     protected static string $resource = ChampionshipCategoryResource::class;
+    protected static ?string $title = 'Registrar categoría de campeonato';
 }
