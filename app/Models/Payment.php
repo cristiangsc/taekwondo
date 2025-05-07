@@ -16,11 +16,13 @@ class Payment extends Model
         'payment_end_date',
         'payment_method',
         'notes',
+        'anio',
     ];
 
     public function student(): BelongsTo
     {
         return $this->belongsTo(Student::class);
     }
+
 
 }

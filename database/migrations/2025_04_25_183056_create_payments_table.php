@@ -21,6 +21,7 @@ return new class extends Migration
             $table->date('payment_end_date');
             $table->enum('payment_method',['Efectivo','Transferencia bancaria','Otro'])->nullable();
             $table->text('notes')->nullable();
+            $table->year('anio')->default(date('Y'));
             $table->timestamps();
         });
     }
