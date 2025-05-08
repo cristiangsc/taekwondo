@@ -18,8 +18,8 @@ class StudentResource extends Resource
 {
     protected static ?string $model = Student::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
-    protected static ?string $navigationLabel = 'Estudiantes';
+    protected static ?string $navigationIcon = 'gmdi-sports-martial-arts-o';
+    protected static ?string $navigationLabel = 'Deportistas';
 
     public static function form(Form $form): Form
     {
@@ -29,6 +29,7 @@ class StudentResource extends Resource
                     ->columns(4)
                     ->schema([
                         Forms\Components\TextInput::make('rut')
+                            ->prefixIcon('heroicon-o-user')
                             ->label('Rut')
                             ->required()
                             ->maxLength(12),
@@ -48,10 +49,12 @@ class StudentResource extends Resource
                             ->label('Fecha de Nacimiento')
                             ->required(),
                         Forms\Components\Select::make('gender')
+                            ->prefixIcon('heroicon-o-user-group')
                             ->label('Género')
                             ->options(collect(Gender::cases())->pluck('value', 'value'))
                             ->required(),
                         Forms\Components\Select::make('grade_id')
+                            ->prefixIcon('hugeicons-pavilon')
                             ->label('Grado')
                             ->relationship('grade', 'name')
                             ->required()
@@ -61,6 +64,7 @@ class StudentResource extends Resource
                     ->columns(3)
                     ->schema([
                         Forms\Components\TextInput::make('phone_number')
+                            ->prefixIcon('heroicon-o-phone')
                             ->label('Teléfono')
                             ->tel()
                             ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
@@ -69,12 +73,14 @@ class StudentResource extends Resource
                             ->default(null),
                         Forms\Components\TextInput::make('phone_number_emergency')
                             ->label('Teléfono de Emergencia')
+                            ->prefixIcon('heroicon-o-phone')
                             ->tel()
                             ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                             ->minLength(9)
                             ->maxLength(11)
                             ->default(null),
                         Forms\Components\TextInput::make('email')
+                            ->prefixIcon('heroicon-o-envelope')
                             ->email()
                             ->maxLength(255)
                             ->default(null),
@@ -86,6 +92,7 @@ class StudentResource extends Resource
                     ->columns(3)
                     ->schema([
                         Forms\Components\Select::make('representative_id')
+                            ->prefixIcon('heroicon-o-user')
                             ->label('Representante y/o Apoderado')
                             ->relationship('representative', 'name')
                             ->default(null),
@@ -121,6 +128,7 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('birth_date')
+                    ->icon('heroicon-m-calendar')
                     ->label('Fecha de Nacimiento')
                     ->alignCenter()
                     ->date()
@@ -135,6 +143,7 @@ class StudentResource extends Resource
                 Tables\Columns\TextColumn::make('phone_number')
                     ->alignCenter()
                     ->label('Teléfono')
+                    ->icon('heroicon-m-phone')
                     ->searchable(),
                 TextColumn::make('grade.name')
                     ->label('Grado')
@@ -148,6 +157,7 @@ class StudentResource extends Resource
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\TextColumn::make('email')
+                    ->icon('heroicon-m-envelope')
                     ->label('Email')
                     ->searchable()
                     ->toggleable(isToggledHiddenByDefault: true),
@@ -166,6 +176,7 @@ class StudentResource extends Resource
                     ->alignCenter()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('admission_date')
+                    ->icon('heroicon-m-calendar')
                     ->label('Fecha de Ingreso')
                     ->alignCenter()
                     ->date()

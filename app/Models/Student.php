@@ -24,7 +24,8 @@ class Student extends Model
         'representative_id',
         'use_image',
         'admission_date',
-        'grade_id'
+        'grade_id',
+        'full_name'
     ];
 
     protected function name(): Attribute

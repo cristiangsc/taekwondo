@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('student_id')->constrained()->onDelete('cascade');
             $table->date('payment_date');
-            $table->decimal('amount');
+            $table->integer('amount');
             $table->date('next_payment_due');
             $table->date('payment_start_date');
             $table->date('payment_end_date');

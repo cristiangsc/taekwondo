@@ -16,7 +16,7 @@ class RepresentativeResource extends Resource
 {
     protected static ?string $model = Representative::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationLabel = 'Apoderados';
 
     public static function form(Form $form): Form
@@ -24,21 +24,25 @@ class RepresentativeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->prefixIcon('heroicon-o-user')
                     ->label('Nombre completo')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('relationship')
+                    ->prefixIcon('heroicon-o-user-group')
                     ->label('Relación')
                     ->options(collect(Relacion::cases())->pluck('value', 'value'))
                     ->required(),
                 Forms\Components\TextInput::make('phone_number')
                     ->label('Teléfono')
+                    ->prefixIcon('heroicon-o-phone')
                     ->tel()
                     ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
                     ->minLength(9)
                     ->maxLength(11)
                     ->default(null),
                 Forms\Components\TextInput::make('email')
+                    ->prefixIcon('heroicon-o-envelope')
                     ->email()
                     ->maxLength(255)
                     ->default(null),
@@ -58,16 +62,20 @@ class RepresentativeResource extends Resource
                     ->searchable(),
                 Tables\Columns\TextColumn::make('relationship')
                 ->label('Relación')
+                    ->badge()
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->label('Teléfono')
+                    ->icon('heroicon-m-phone')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
                     ->label('Email')
+                    ->icon('heroicon-m-envelope')
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('address')
+                    ->icon('heroicon-m-home')
                     ->label('Dirección')
                     ->sortable()
                     ->searchable()

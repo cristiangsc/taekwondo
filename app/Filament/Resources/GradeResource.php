@@ -15,7 +15,7 @@ class GradeResource extends Resource
 {
     protected static ?string $model = Grade::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'hugeicons-navigator-01';
     protected static ?string $navigationLabel = 'Grados';
     protected static ?string $breadcrumb = 'Grados';
 
@@ -24,19 +24,23 @@ class GradeResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('type')
+                    ->prefixIcon('heroicon-o-cog-8-tooth')
                     ->label('Tipo')
                     ->options(collect(TypeGrade::cases())->pluck('value', 'value'))
                     ->required(),
                 Forms\Components\TextInput::make('level')
+                    ->prefixIcon('hugeicons-sort-by-up-02')
                     ->label('Nivel')
                     ->maxValue(10)
                     ->required()
                     ->numeric(),
                 Forms\Components\TextInput::make('name')
+                    ->prefixIcon('hugeicons-edit-table')
                     ->label('Nombre del grado')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('order')
+                    ->prefixIcon('heroicon-o-numbered-list')
                     ->label('Orden de importancia')
                     ->required()
                     ->numeric(),
@@ -60,6 +64,7 @@ class GradeResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('order')
+                    ->alignCenter()
                     ->label('Orden de importancia')
                     ->numeric()
                     ->sortable(),

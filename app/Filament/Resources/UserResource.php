@@ -14,7 +14,7 @@ class UserResource extends Resource
 {
     protected static ?string $model = User::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'heroicon-o-user';
     protected static ?string $navigationLabel = 'Usuarios';
     protected static ?string $breadcrumb = 'Usuarios';
 
@@ -24,15 +24,18 @@ class UserResource extends Resource
         return $form
             ->schema([
                 Forms\Components\TextInput::make('name')
+                    ->prefixIcon('heroicon-o-user')
                     ->label('Nombres')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('email')
+                    ->prefixIcon('heroicon-o-envelope')
                     ->label('Correo Electrónico')
                     ->email()
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('password')
+                    ->prefixIcon('heroicon-o-key')
                     ->label('Contraseña')
                     ->password()
                     ->required()
@@ -48,6 +51,7 @@ class UserResource extends Resource
                     ->label('Nombres')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email')
+                    ->icon('heroicon-o-envelope')
                     ->label('Correo Electrónico')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('email_verified_at')
