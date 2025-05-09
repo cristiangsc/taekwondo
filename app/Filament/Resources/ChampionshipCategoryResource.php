@@ -16,7 +16,7 @@ class ChampionshipCategoryResource extends Resource
 {
     protected static ?string $model = ChampionshipCategory::class;
 
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'carbon-category';
     protected static ?string $navigationGroup = 'Championships';
     protected static ?string $navigationLabel = 'Categorías';
     protected static ?string $breadcrumb = 'Categorías';
@@ -28,11 +28,14 @@ class ChampionshipCategoryResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre Categoría')
+                    ->placeholder('Nombre de la categoría')
+                    ->prefixIcon('heroicon-o-pencil')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\Select::make('types')
                     ->label('Tipos de Categoría')
                     ->options(collect(TypeGrade::cases())->pluck('value', 'value'))
+                    ->prefixIcon('carbon-category')
                     ->required(),
             ]);
     }
@@ -43,6 +46,7 @@ class ChampionshipCategoryResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre Categoría')
+                    ->icon('carbon-category')
                     ->searchable(),
                 Tables\Columns\TextColumn::make('types')
                     ->label('Tipo Categoría'),
@@ -59,11 +63,11 @@ class ChampionshipCategoryResource extends Resource
             ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->label('')
-                ->modalHeading('Editar Categoría'),
+                    ->label('')
+                    ->modalHeading('Editar Categoría'),
                 Tables\Actions\DeleteAction::make()
-                ->label('')
-                ->modalHeading('Eliminar Categoría')
+                    ->label('')
+                    ->modalHeading('Eliminar Categoría')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([

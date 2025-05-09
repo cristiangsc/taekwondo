@@ -12,6 +12,7 @@ class ChampionshipRegistration extends Model
         'championship_category_id',
         'registration_date',
         'championship_id',
+        'registration_fee',
         'mode',
         'notes',
     ];

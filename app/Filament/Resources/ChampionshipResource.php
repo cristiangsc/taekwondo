@@ -15,7 +15,7 @@ class ChampionshipResource extends Resource
     protected static ?string $model = Championship::class;
     protected static ?string $navigationGroup = 'Championships';
     protected static ?string $navigationLabel = 'Campeonatos';
-    protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
+    protected static ?string $navigationIcon = 'hugeicons-champion';
     protected static ?string $breadcrumb = 'Campeonatos';
 
     public static function form(Form $form): Form
@@ -24,6 +24,8 @@ class ChampionshipResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre del Campeonato')
+                    ->placeholder('Nombre del Campeonato')
+                    ->prefixIcon('hugeicons-champion')
                     ->required()
                     ->columnSpan('full')
                     ->maxLength(255),
@@ -35,10 +37,14 @@ class ChampionshipResource extends Resource
                     ->required(),
                 Forms\Components\TextInput::make('location')
                     ->label('Ubicación')
+                    ->placeholder('Ubicación del Campeonato')
+                    ->prefixIcon('carbon-map')
                     ->maxLength(255)
                     ->default(null),
                 Forms\Components\TextInput::make('year')
                     ->label('Año')
+                    ->placeholder('Año del Campeonato')
+                    ->prefixIcon('carbon-calendar')
                     ->numeric()
                     ->required(),
             ]);
@@ -50,6 +56,8 @@ class ChampionshipResource extends Resource
             ->columns([
                 Tables\Columns\TextColumn::make('name')
                     ->label('Nombre del Campeonato')
+                    ->icon('hugeicons-champion')
+                    ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('start_date')
                     ->label('Fecha de Inicio')
