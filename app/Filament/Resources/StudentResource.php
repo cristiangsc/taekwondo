@@ -4,7 +4,6 @@ namespace App\Filament\Resources;
 
 use App\Enums\Gender;
 use App\Filament\Resources\StudentResource\Pages;
-use App\Filament\Resources\StudentResource\RelationManagers;
 use App\Models\Student;
 use Filament\Forms;
 use Filament\Forms\Form;

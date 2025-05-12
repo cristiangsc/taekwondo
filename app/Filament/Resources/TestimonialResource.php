@@ -25,8 +25,10 @@ class TestimonialResource extends Resource
         return $form
             ->schema([
                 Forms\Components\Select::make('student_id')
-                    ->label('Estudiante')
-                    ->relationship('student', 'name')
+                    ->label('Deportista')
+                    ->placeholder('Seleccione deportista')
+                    ->prefixIcon('gmdi-sports-martial-arts-o')
+                    ->relationship('student', 'full_name')
                     ->required(),
                 Forms\Components\Textarea::make('content')
                     ->label('Testimonio')
@@ -45,9 +47,10 @@ class TestimonialResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('student.name')
-                    ->label('Estudiante')
-                    ->numeric()
+                Tables\Columns\TextColumn::make('student.full_name')
+                    ->label('Deportista')
+                    ->icon('gmdi-sports-martial-arts-o')
+                    ->searchable()
                     ->sortable(),
                 Tables\Columns\TextColumn::make('content')
                     ->label('Testimonio')
@@ -56,6 +59,7 @@ class TestimonialResource extends Resource
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_approved')
                     ->label('¿Aprobado?')
+                    ->alignCenter()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado el')

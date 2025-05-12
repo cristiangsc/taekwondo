@@ -28,11 +28,15 @@ class SlideResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('title')
                     ->label('Título')
+                    ->placeholder('Título principal')
+                    ->prefixIcon('heroicon-o-pencil')
                     ->required()
                     ->columnSpanFull()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('subtitle')
                     ->label('Subtítulo')
+                    ->placeholder('Escriba el subtítulo')
+                    ->prefixIcon('heroicon-o-pencil')
                     ->maxLength(255)
                     ->columnSpanFull()
                     ->default(null),
@@ -66,6 +70,7 @@ class SlideResource extends Resource
                     ->limit(100)
                     ->searchable(),
                 Tables\Columns\IconColumn::make('is_active')
+                    ->alignCenter()
                     ->label('¿Activo?')
                     ->boolean(),
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('imagen')

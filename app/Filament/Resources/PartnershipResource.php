@@ -31,10 +31,14 @@ class PartnershipResource extends Resource
             ->schema([
                 Forms\Components\TextInput::make('name')
                     ->label('Nombre')
+                    ->placeholder('Nombre de la alianza')
+                    ->prefixIcon('heroicon-o-pencil')
                     ->required()
                     ->maxLength(255),
                 Forms\Components\TextInput::make('url')
                     ->label('URL')
+                    ->placeholder('Escriba la URL')
+                    ->prefixIcon('heroicon-o-pencil')
                     ->maxLength(255)
                     ->default(null),
                 RichEditor::make('description')
