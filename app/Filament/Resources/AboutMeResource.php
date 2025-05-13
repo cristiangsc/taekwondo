@@ -5,7 +5,6 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AboutMeResource\Pages;
 use App\Models\AboutMe;
 use Filament\Forms;
-use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -27,25 +26,20 @@ class AboutMeResource extends Resource
     {
         return $form
             ->schema([
-                RichEditor::make('history')
+                Forms\Components\Textarea::make('history')
                     ->required()
                     ->maxLength(65535)
                     ->label('Historia')
                     ->columnSpanFull(),
-                RichEditor::make('mission')
+                Forms\Components\Textarea::make('mission')
                     ->required()
                     ->maxLength(65535)
                     ->label('Misión')
                     ->columnSpanFull(),
-                RichEditor::make('vision')
+                Forms\Components\Textarea::make('vision')
                     ->required()
                     ->maxLength(65535)
                     ->label('Visión')
-                    ->columnSpanFull(),
-                RichEditor::make('values')
-                    ->required()
-                    ->maxLength(65535)
-                    ->label('Valores')
                     ->columnSpanFull(),
                 SpatieMediaLibraryFileUpload::make('imagenes')
                     ->label('Imágenes')
@@ -77,11 +71,6 @@ class AboutMeResource extends Resource
                     ->limit(50),
                 Tables\Columns\TextColumn::make('vision')
                     ->label('Visión')
-                    ->searchable()
-                    ->html()
-                    ->limit(50),
-                Tables\Columns\TextColumn::make('values')
-                    ->label('Valores')
                     ->searchable()
                     ->html()
                     ->limit(50),

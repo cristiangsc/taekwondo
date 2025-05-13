@@ -2,21 +2,21 @@
 
 namespace App\View\Components;
 
-use App\Models\Slide;
+use App\Models\News;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class Carousel extends Component
+class NoticiasDestacadas extends Component
 {
-    public $slides;
+
+    public $noticias;
 
     public function __construct()
     {
-        $this->slides = Slide::where('is_active', true)
-            ->orderBy('created_at', 'desc')
+        $this->noticias = News::latest()
+            ->take(3)
             ->get();
-
     }
 
     /**
@@ -24,9 +24,8 @@ class Carousel extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.carousel', [
-            'slides' => $this->slides
+        return view('components.noticias-destacadas', [
+            'noticias' => $this->noticias,
         ]);
-
     }
 }

@@ -6,15 +6,16 @@ use Illuminate\Database\Eloquent\Model;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 
-class AboutMe extends Model implements HasMedia
+class Valores extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $table = 'about_me';
-
+    protected $table = 'valores';
     protected $fillable = [
-        'history',
-        'mission',
-        'vision'
+        'id',
+        'valor',
+        'description'
     ];
+
+
 }

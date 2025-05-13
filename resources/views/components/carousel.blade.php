@@ -1,66 +1,80 @@
 <div>
-
-
-    <div id="default-carousel" class="relative w-full" data-carousel="slide">
-        <!-- Carousel wrapper -->
-        <div class="relative h-56 overflow-hidden rounded-lg md:h-96">
-            <!-- Item 1 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-1.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 2 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-2.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 3 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-3.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 4 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-4.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-            <!-- Item 5 -->
-            <div class="hidden duration-700 ease-in-out" data-carousel-item>
-                <img src="/docs/images/carousel/carousel-5.svg" class="absolute block w-full -translate-x-1/2 -translate-y-1/2 top-1/2 left-1/2" alt="...">
-            </div>
-        </div>
-        <!-- Slider indicators -->
-        <div class="absolute z-30 flex -translate-x-1/2 bottom-5 left-1/2 space-x-3 rtl:space-x-reverse">
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="true" aria-label="Slide 1" data-carousel-slide-to="0"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 2" data-carousel-slide-to="1"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 3" data-carousel-slide-to="2"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 4" data-carousel-slide-to="3"></button>
-            <button type="button" class="w-3 h-3 rounded-full" aria-current="false" aria-label="Slide 5" data-carousel-slide-to="4"></button>
-        </div>
-        <!-- Slider controls -->
-        <button type="button" class="absolute top-0 start-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-prev>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 1 1 5l4 4"/>
-            </svg>
-            <span class="sr-only">Previous</span>
-        </span>
-        </button>
-        <button type="button" class="absolute top-0 end-0 z-30 flex items-center justify-center h-full px-4 cursor-pointer group focus:outline-none" data-carousel-next>
-        <span class="inline-flex items-center justify-center w-10 h-10 rounded-full bg-white/30 dark:bg-gray-800/30 group-hover:bg-white/50 dark:group-hover:bg-gray-800/60 group-focus:ring-4 group-focus:ring-white dark:group-focus:ring-gray-800/70 group-focus:outline-none">
-            <svg class="w-4 h-4 text-white dark:text-gray-800 rtl:rotate-180" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 6 10">
-                <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="m1 9 4-4-4-4"/>
-            </svg>
-            <span class="sr-only">Next</span>
-        </span>
-        </button>
-
-        <section class="bg-gray-100 py-12" id="inicio">
-            <div class="container mx-auto px-4 text-center">
-                <h2 class="text-3xl font-semibold mb-4">Noticias destacadas</h2>
-                <div class="bg-white p-6 rounded shadow">
-                    <h3 class="text-xl font-bold">Campeonato Nacional - ¡Orgullo para la escuela!</h3>
-                    <p class="text-gray-600">Nuestros estudiantes obtuvieron medallas en varias categorías.</p>
+    <div x-data="{
+    activeSlide: 0,
+    slides: {{ count($slides) }},
+    autoplay: 5000,
+    init() {
+        if (this.slides > 1) {
+            setInterval(() => {
+                this.activeSlide = (this.activeSlide + 1) % this.slides
+            }, this.autoplay)
+        }
+    }
+}" class="relative w-full">
+        <div class="relative h-64 overflow-hidden rounded-lg md:h-[500px]">
+            @foreach ($slides as $index => $slide)
+                <div
+                    x-show="activeSlide === {{ $index }}"
+                    x-transition:enter="transition ease-out duration-500"
+                    x-transition:enter-start="opacity-0 transform translate-x-full"
+                    x-transition:enter-end="opacity-100 transform translate-x-0"
+                    x-transition:leave="transition ease-in duration-500"
+                    x-transition:leave-start="opacity-100 transform translate-x-0"
+                    x-transition:leave-end="opacity-0 transform -translate-x-full"
+                    class="absolute top-0 left-0 w-full h-full"
+                    style="display: {{ $index == 0 ? 'block' : 'none' }};"
+                >
+                    <img
+                        src="{{ $slide->getFirstMediaUrl('carrusel') }}"
+                        class="absolute block w-full h-full object-cover object-center"
+                        alt="{{ $slide->title }}"
+                    >
+                    <div class="absolute inset-0 flex flex-col items-center justify-center bg-black/40">
+                        <div class="text-center px-4 py-6">
+                            <h3 class="text-white text-3xl md:text-4xl font-bold tracking-wider">
+                                {{ $slide->title }}
+                            </h3>
+                            @if($slide->subtitle)
+                                <p class="text-white/90 mt-4 text-lg md:text-xl max-w-3xl mx-auto">
+                                    {{ $slide->subtitle }}
+                                </p>
+                            @endif
+                        </div>
+                    </div>
                 </div>
+            @endforeach
+        </div>
+
+        @if(count($slides) > 1)
+            <!-- Controles de navegación -->
+            <button
+                @click="activeSlide = activeSlide === 0 ? {{ count($slides) - 1 }} : activeSlide - 1"
+                class="absolute left-0 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-r-lg p-2 text-white transition-colors duration-300"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M15.75 19.5 8.25 12l7.5-7.5" />
+                </svg>
+            </button>
+
+            <button
+                @click="activeSlide = activeSlide === {{ count($slides) - 1 }} ? 0 : activeSlide + 1"
+                class="absolute right-0 top-1/2 -translate-y-1/2 bg-white/30 hover:bg-white/50 rounded-l-lg p-2 text-white transition-colors duration-300"
+            >
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="w-6 h-6">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M8.25 4.5l7.5 7.5-7.5 7.5" />
+                </svg>
+            </button>
+
+            <!-- Indicadores -->
+            <div class="absolute bottom-4 left-1/2 transform -translate-x-1/2 flex space-x-2">
+                @foreach ($slides as $index => $slide)
+                    <button
+                        @click="activeSlide = {{ $index }}"
+                        :class="{'bg-white': activeSlide === {{ $index }}, 'bg-white/50': activeSlide !== {{ $index }}}"
+                        class="w-3 h-3 rounded-full transition-all duration-300"
+                    ></button>
+                @endforeach
             </div>
-        </section>
-
+        @endif
     </div>
-
 </div>
