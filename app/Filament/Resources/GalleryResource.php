@@ -38,7 +38,6 @@ class GalleryResource extends Resource
                     ->imageEditor()
                     ->openable()
                     ->optimize('jpg')
-                    ->resize(30)
                     ->columnSpanFull()
             ]);
     }
@@ -53,6 +52,8 @@ class GalleryResource extends Resource
                 Tables\Columns\SpatieMediaLibraryImageColumn::make('images')
                     ->collection('gallery')
                     ->label('Imágenes')
+                    ->conversion('thumb')
+                    ->limit(4)
                     ->circular()
                     ->size(50),
                 Tables\Columns\TextColumn::make('created_at')

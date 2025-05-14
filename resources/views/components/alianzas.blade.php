@@ -5,16 +5,16 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
             @foreach($partnerships as $partnership)
                 <div
-                    class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl h-[300px]">
+                    class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl h-[200px]">
                     <a href="{{ $partnership->url }}" target="_blank" class="flex flex-col h-full">
                         @if($partnership->getFirstMedia('alianza'))
                             <img
                                 src="{{ $partnership->getFirstMediaUrl('alianza') }}"
                                 alt="{{ $partnership->name }}"
-                                class="w-full h-32 object-fill "
+                                class="w-full h-28 object-center object-contain"
                             >
                         @else
-                            <div class="w-full h-32 bg-gray-200 flex items-center justify-center text-gray-500">
+                            <div class="w-full h-28 bg-gray-200 flex items-center justify-center text-gray-500">
                                 Sin imagen
                             </div>
                         @endif
