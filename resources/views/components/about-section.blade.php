@@ -29,7 +29,7 @@
                     </div>
                     <div class="p-6">
                         <div class="prose-content">
-                            {!! $aboutMe->history !!}
+                            {!! $aboutMe->history ?? '<p>No hay información disponible sobre la historia.</p>' !!}
                         </div>
                     </div>
                 </div>
@@ -49,7 +49,7 @@
                     </div>
                     <div class="p-6">
                         <div class="prose-content">
-                            {!! $aboutMe->mission !!}
+                            {!! $aboutMe->mission ?? '<p>No hay información disponible sobre la misión.</p>' !!}
                         </div>
                     </div>
                 </div>
@@ -70,7 +70,7 @@
                     </div>
                     <div class="p-6">
                         <div class="prose-content">
-                            {!! $aboutMe->vision !!}
+                            {!! $aboutMe->vision ?? '<p>No hay información disponible sobre la visión.</p>' !!}
                         </div>
                     </div>
                 </div>

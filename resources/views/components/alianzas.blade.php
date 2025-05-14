@@ -1,27 +1,34 @@
-<div class="container mx-auto px-4 py-8">
-    <h2 class="text-2xl font-bold text-gray-800 mb-6">Nuestras Alianzas</h2>
+<div class="bg-white py-8">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center mb-4">Nuestras Alianzas</h2>
 
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        @foreach($partnerships as $partnership)
-            <div class="bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition duration-300">
-                <a href="{{ $partnership->url }}" target="_blank" class="block">
-                    @if($partnership->getFirstMedia('alianza'))
-                        <img
-                            src="{{ $partnership->getFirstMedia('alianza')->getUrl() }}"
-                            alt="{{ $partnership->name }}"
-                            class="w-full h-32 object-cover"
-                        >
-                    @endif
-                    <div class="p-4">
-                        <h3 class="text-lg font-semibold text-gray-800">{{ $partnership->name }}</h3>
-                        @if($partnership->url)
-                            <p class="text-sm text-blue-600 mt-2 hover:underline">
-                                Visitar sitio web
-                            </p>
+        <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
+            @foreach($partnerships as $partnership)
+                <div
+                    class="bg-white rounded-2xl shadow-md overflow-hidden flex flex-col transition-transform duration-300 hover:scale-105 hover:shadow-xl h-[300px]">
+                    <a href="{{ $partnership->url }}" target="_blank" class="flex flex-col h-full">
+                        @if($partnership->getFirstMedia('alianza'))
+                            <img
+                                src="{{ $partnership->getFirstMediaUrl('alianza') }}"
+                                alt="{{ $partnership->name }}"
+                                class="w-full h-32 object-fill "
+                            >
+                        @else
+                            <div class="w-full h-32 bg-gray-200 flex items-center justify-center text-gray-500">
+                                Sin imagen
+                            </div>
                         @endif
-                    </div>
-                </a>
-            </div>
-        @endforeach
+                        <div class="p-4 flex flex-col flex-grow justify-between text-center">
+                            <h3 class="text-base font-semibold text-gray-800 truncate">{{ $partnership->name }}</h3>
+                            @if($partnership->url)
+                                <p class="text-sm text-blue-600 mt-2 hover:underline">
+                                    Visitar sitio web
+                                </p>
+                            @endif
+                        </div>
+                    </a>
+                </div>
+            @endforeach
+        </div>
     </div>
 </div>

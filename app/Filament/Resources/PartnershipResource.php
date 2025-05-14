@@ -53,7 +53,9 @@ class PartnershipResource extends Resource
                     ->responsiveImages()
                     ->imageEditor()
                     ->openable()
-                    ->optimize('jpg')
+                    ->optimize('png','jpg')
+                    ->imageResizeTargetWidth('300')
+                    ->imageResizeTargetHeight('300')
                     ->resize(30)
                     ->columnSpanFull()
             ]);

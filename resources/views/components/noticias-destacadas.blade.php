@@ -1,7 +1,6 @@
-<div>
     <div class="bg-white py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold text-gray-900 text-center mb-8">Noticias Destacadas</h2>
+            <h2 class="text-3xl font-bold tracking-tight text-gray-900 sm:text-4xl text-center">Noticias Destacadas</h2>
 
             <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
                 @foreach($noticias as $noticia)
@@ -29,4 +28,4 @@
             </div>
         </div>
     </div>
-</div>
+
