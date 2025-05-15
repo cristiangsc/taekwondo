@@ -6,6 +6,7 @@ use App\Enums\Gender;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Models\Student;
 use Filament\Forms;
+use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -102,6 +103,14 @@ class StudentResource extends Resource
                             ->label('¿Autoriza uso de imagen?')
                             ->default(true)
                             ->required(),
+                        SpatieMediaLibraryFileUpload::make('Avatar')
+                            ->label('Avatar')
+                            ->collection('avatars')
+                            ->image()
+                            ->imageEditor()
+                            ->openable()
+                            ->optimize('jpg','png')
+                            ->columnSpanFull()
                     ]),
             ]);
     }
@@ -110,6 +119,13 @@ class StudentResource extends Resource
     {
         return $table
             ->columns([
+                Tables\Columns\SpatieMediaLibraryImageColumn::make('imagen')
+                    ->collection('avatars')
+                    ->label('Avatar')
+                    ->conversion('thumb')
+                    ->limit(4)
+                    ->circular()
+                    ->size(50),
                 Tables\Columns\TextColumn::make('rut')
                     ->label('Rut')
                     ->sortable()

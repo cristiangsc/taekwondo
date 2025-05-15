@@ -1768,6 +1768,8 @@
 <x-noticias-destacadas/>
 <x-alianzas/>
 <x-latest-gallery-images />
+<x-faq />
+<x-testimonials />
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 

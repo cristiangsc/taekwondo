@@ -7,9 +7,14 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Student extends Model
+class Student extends Model implements HasMedia
 {
+    use InteractsWithMedia;
+
     protected $fillable = [
         'rut',
         'name',
@@ -27,6 +32,15 @@ class Student extends Model
         'grade_id',
         'full_name'
     ];
+
+    public function registerMediaConversions(Media $media = null): void
+    {
+        $this->addMediaConversion('thumb')
+            ->width(800)
+            ->height(600)
+            ->sharpen(10)
+            ->nonQueued();
+    }
 
     protected function name(): Attribute
     {
