@@ -120,7 +120,7 @@
                     <!-- Submit Button -->
                     <div class="sm:col-span-2">
                         <button type="submit"
-                            class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-[#000E27]  bg-[#EE5E10] hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
+                            class="w-full inline-flex items-center justify-center px-6 py-3 border border-transparent rounded-md shadow-sm text-base font-medium text-white cursor-pointer  bg-[#EE5E10] hover:bg-orange-400 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 transition-colors duration-200"
                             :class="{ 'opacity-75 cursor-not-allowed': loading }">
                             <span x-show="!loading">Enviar mensaje</span>
                             <span x-show="loading" class="flex items-center">
