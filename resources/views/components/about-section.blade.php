@@ -1,11 +1,10 @@
-<div>
-
+<section id="about">
     @props(['aboutMe'])
 
-    <div class="bg-white dark:bg-gray-900 py-16">
+    <div class="bg-[#000E27] dark:bg-gray-900 py-16">
         <!-- Título Principal -->
         <div class="container mx-auto px-4 mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-center text-gray-900 dark:text-white mb-4">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white mb-4">
                 Sobre la Escuela
             </h1>
             <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
@@ -15,13 +14,18 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Historia -->
-                <div class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                <div
+                    class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-b from-blue-600/70 to-blue-800/70 rounded-t-xl"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-blue-600/70 to-blue-800/70 rounded-t-xl"></div>
                         <div class="relative p-8">
-                            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
-                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
+                            <div
+                                class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
+                                <svg class="w-8 h-8 text-blue-600" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"></path>
                                 </svg>
                             </div>
                             <h2 class="text-2xl font-bold text-center text-white mb-2">Historia</h2>
@@ -35,13 +39,18 @@
                 </div>
 
                 <!-- Misión -->
-                <div class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                <div
+                    class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-b from-green-600/70 to-green-800/70 rounded-t-xl"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-green-600/70 to-green-800/70 rounded-t-xl"></div>
                         <div class="relative p-8">
-                            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
-                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"></path>
+                            <div
+                                class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
+                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M13 10V3L4 14h7v7l9-11h-7z"></path>
                                 </svg>
                             </div>
                             <h2 class="text-2xl font-bold text-center text-white mb-2">Misión</h2>
@@ -55,14 +64,20 @@
                 </div>
 
                 <!-- Visión -->
-                <div class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                <div
+                    class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
                     <div class="relative">
-                        <div class="absolute inset-0 bg-gradient-to-b from-purple-600/70 to-purple-800/70 rounded-t-xl"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-b from-purple-600/70 to-purple-800/70 rounded-t-xl"></div>
                         <div class="relative p-8">
-                            <div class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
-                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
-                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
+                            <div
+                                class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
+                                <svg class="w-8 h-8 text-purple-600" fill="none" stroke="currentColor"
+                                     viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                          d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z"></path>
                                 </svg>
                             </div>
                             <h2 class="text-2xl font-bold text-center text-white mb-2">Visión</h2>
@@ -163,4 +178,5 @@
             flex-grow: 1;
         }
     </style>
-</div>
+</section>
+

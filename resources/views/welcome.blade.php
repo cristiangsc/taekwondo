@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" style="scroll-behavior: smooth;">
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -1767,9 +1767,11 @@
 <x-valores-card/>
 <x-noticias-destacadas/>
 <x-alianzas/>
-<x-latest-gallery-images />
-<x-faq />
-<x-testimonials />
+<x-latest-gallery-images/>
+<x-faq/>
+<x-testimonials/>
+<x-contact-form/>
+<x-footer/>
 
 <script src="https://cdn.jsdelivr.net/npm/flowbite@3.1.2/dist/flowbite.min.js"></script>
 

@@ -2,21 +2,18 @@
 
 namespace App\View\Components;
 
-use App\Models\News;
 use Closure;
 use Illuminate\Contracts\View\View;
 use Illuminate\View\Component;
 
-class NoticiasDestacadas extends Component
+class Footer extends Component
 {
-
-    public $noticias;
-
+    /**
+     * Create a new component instance.
+     */
     public function __construct()
     {
-        $this->noticias = News::latest()
-            ->take(4)
-            ->get();
+        //
     }
 
     /**
@@ -24,8 +21,6 @@ class NoticiasDestacadas extends Component
      */
     public function render(): View|Closure|string
     {
-        return view('components.noticias-destacadas', [
-            'noticias' => $this->noticias,
-        ]);
+        return view('components.footer');
     }
 }

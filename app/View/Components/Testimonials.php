@@ -26,7 +26,17 @@ class Testimonials extends Component
             ->approved()
             ->latest()
             ->take(6)
-            ->get();
+            ->get()
+            ->map(function ($testimonial) {
+                return [
+                    'content' => $testimonial->content,
+                    'student' => $testimonial->student ? [
+                        'full_name' => $testimonial->student->full_name,
+                        'grade' => $testimonial->student->grade ? $testimonial->student->grade->name : null,
+                        'avatar' => $testimonial->student->getFirstMediaUrl('avatars') ?: null,
+                    ] : null,
+                ];
+            });
     }
 
     /**
