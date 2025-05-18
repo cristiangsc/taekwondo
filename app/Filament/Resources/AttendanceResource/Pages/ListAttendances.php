@@ -1,0 +1,22 @@
+<?php
+
+namespace App\Filament\Resources\AttendanceResource\Pages;
+
+use App\Filament\Resources\AttendanceResource;
+use Filament\Actions;
+use Filament\Resources\Pages\ListRecords;
+
+class ListAttendances extends ListRecords
+{
+    protected static string $resource = AttendanceResource::class;
+    protected static ?string $title = 'Asistencia';
+
+    protected function getHeaderActions(): array
+    {
+        return [
+            Actions\CreateAction::make()
+            ->label('Registrar Asistencia')
+            ->modalHeading('Registrar Asistencia'),
+        ];
+    }
+}
