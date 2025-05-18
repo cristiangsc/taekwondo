@@ -14,17 +14,27 @@
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-white mb-2">
-                                {{ $noticia->title }}
+                                <a href="{{ route('news.show', $noticia->slug) }}" class="hover:text-blue-400">
+                                    {{ $noticia->title }}
+                                </a>
                             </h3>
                             <p class="text-gray-300 mb-4">
                                 {!! Str::limit(strip_tags($noticia->content), 150) !!}
                             </p>
-                            <div class="text-sm text-gray-400">
+                            <div class="text-sm text-gray-400 mb-4">
                                 {{ $noticia->created_at->format('d/m/Y') }}
                             </div>
+                            <a href="{{ route('news.show', $noticia->slug) }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded text-sm">
+                                Leer más
+                            </a>
                         </div>
                     </div>
                 @endforeach
+            </div>
+            <div class="mt-8 text-center">
+                <a href="{{ route('news.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                    Ver todas las noticias
+                </a>
             </div>
         </div>
     </div>

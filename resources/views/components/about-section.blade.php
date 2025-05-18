@@ -1,5 +1,4 @@
 <section id="about">
-    @props(['aboutMe'])
 
     <div class="bg-[#000E27] dark:bg-gray-900 py-16">
         <!-- Título Principal -->
@@ -14,11 +13,10 @@
         <div class="container mx-auto px-4">
             <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
                 <!-- Historia -->
-                <div
-                    class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                <div class="card bg-blue-950 dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
                     <div class="relative">
                         <div
-                            class="absolute inset-0 bg-gradient-to-b from-blue-600/70 to-blue-800/70 rounded-t-xl"></div>
+                            class="absolute inset-0 bg-gradient-to-b from-blue-700/70 to-blue-800/70 rounded-t-xl"></div>
                         <div class="relative p-8">
                             <div
                                 class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
@@ -31,8 +29,8 @@
                             <h2 class="text-2xl font-bold text-center text-white mb-2">Historia</h2>
                         </div>
                     </div>
-                    <div class="p-6">
-                        <div class="prose-content">
+                    <div class="p-6 text-white">
+                        <div>
                             {!! $aboutMe->history ?? '<p>No hay información disponible sobre la historia.</p>' !!}
                         </div>
                     </div>
@@ -40,14 +38,14 @@
 
                 <!-- Misión -->
                 <div
-                    class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                    class="card bg-orange-950 dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
                     <div class="relative">
                         <div
-                            class="absolute inset-0 bg-gradient-to-b from-green-600/70 to-green-800/70 rounded-t-xl"></div>
+                            class="absolute inset-0 bg-gradient-to-b from-orange-400/70 to-orange-500/70 rounded-t-xl"></div>
                         <div class="relative p-8">
                             <div
                                 class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
-                                <svg class="w-8 h-8 text-green-600" fill="none" stroke="currentColor"
+                                <svg class="w-8 h-8 text-orange-600" fill="none" stroke="currentColor"
                                      viewBox="0 0 24 24">
                                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
                                           d="M13 10V3L4 14h7v7l9-11h-7z"></path>
@@ -57,7 +55,7 @@
                         </div>
                     </div>
                     <div class="p-6">
-                        <div class="prose-content">
+                        <div class="text-white">
                             {!! $aboutMe->mission ?? '<p>No hay información disponible sobre la misión.</p>' !!}
                         </div>
                     </div>
@@ -65,10 +63,10 @@
 
                 <!-- Visión -->
                 <div
-                    class="card bg-white dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
+                    class="card bg-purple-950 dark:bg-gray-800 rounded-xl shadow-lg transition-transform duration-300 hover:transform hover:scale-105">
                     <div class="relative">
                         <div
-                            class="absolute inset-0 bg-gradient-to-b from-purple-600/70 to-purple-800/70 rounded-t-xl"></div>
+                            class="absolute inset-0 bg-gradient-to-b from-purple-700/70 to-purple-900/70 rounded-t-xl"></div>
                         <div class="relative p-8">
                             <div
                                 class="flex items-center justify-center w-16 h-16 mx-auto mb-4 bg-white rounded-full">
@@ -84,7 +82,7 @@
                         </div>
                     </div>
                     <div class="p-6">
-                        <div class="prose-content">
+                        <div class="text-white">
                             {!! $aboutMe->vision ?? '<p>No hay información disponible sobre la visión.</p>' !!}
                         </div>
                     </div>
