@@ -4,6 +4,6 @@ namespace App\Enums;
 
 enum TypeGrade: string
 {
-    case Kup = 'Kup';
+    case Gup = 'Gup';
     case Dan = 'Dan';
 }

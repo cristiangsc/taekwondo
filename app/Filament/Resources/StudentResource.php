@@ -3,6 +3,7 @@
 namespace App\Filament\Resources;
 
 use App\Enums\Gender;
+use App\Enums\Group;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Models\Student;
 use Filament\Forms;
@@ -89,7 +90,7 @@ class StudentResource extends Resource
                             ->columnSpanFull(),
                     ]),
                 Forms\Components\Section::make('Datos de Inscripción')
-                    ->columns(3)
+                    ->columns(4)
                     ->schema([
                         Forms\Components\Select::make('representative_id')
                             ->prefixIcon('heroicon-o-user')
@@ -98,6 +99,11 @@ class StudentResource extends Resource
                             ->default(null),
                         Forms\Components\DatePicker::make('admission_date')
                             ->label('Fecha de Ingreso')
+                            ->required(),
+                        Forms\Components\Select::make('group')
+                            ->label('Grupo')
+                            ->placeholder('Seleccione un grupo')
+                            ->options(collect(Group::cases())->pluck('value', 'value'))
                             ->required(),
                         Forms\Components\Toggle::make('use_image')
                             ->label('¿Autoriza uso de imagen?')
@@ -166,6 +172,19 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge(),
+                Tables\Columns\TextColumn::make('group')
+                    ->label('Grupo')
+                    ->alignCenter()
+                    ->sortable()
+                    ->searchable()
+                    ->badge()
+                    ->color(
+                        fn (string $state): string => match ($state) {
+                            Group::Preinfantil->value => 'primary',
+                            Group::Infantil->value => 'warning',
+                            Group::JuvenilAdulto->value => 'success',
+                        }
+                    ),
                 Tables\Columns\TextColumn::make('phone_number_emergency')
                     ->label('Teléfono de Emergencia')
                     ->alignCenter()
@@ -188,6 +207,9 @@ class StudentResource extends Resource
                     ->toggleable(isToggledHiddenByDefault: true),
                 Tables\Columns\IconColumn::make('use_image')
                     ->label('¿Autoriza imagen?')
+                    ->color(
+                        fn (string $state): string => $state ? 'success' : 'danger'
+                    )
                     ->alignCenter()
                     ->boolean(),
                 Tables\Columns\TextColumn::make('admission_date')

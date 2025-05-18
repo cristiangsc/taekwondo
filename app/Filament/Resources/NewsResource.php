@@ -53,6 +53,7 @@ class NewsResource extends Resource
                             ->label('Imagen')
                             ->collection('image')
                             ->required()
+                            ->imageEditor()
                             ->image(),
                     ])
             ]);

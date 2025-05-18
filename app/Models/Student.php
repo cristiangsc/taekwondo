@@ -30,6 +30,7 @@ class Student extends Model implements HasMedia
         'use_image',
         'admission_date',
         'grade_id',
+        'group',
         'full_name'
     ];
 

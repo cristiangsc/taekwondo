@@ -7,7 +7,7 @@
             @foreach($faqs as $index => $faq)
                 <div class="border border-[#000E27] rounded-lg overflow-hidden">
                     <details class="group" {{ $index === 0 ? 'open' : '' }}>
-                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 bg-[#000E27] hover:bg-[#00255C] transition-all duration-300">
+                        <summary class="flex justify-between items-center font-medium cursor-pointer list-none p-4 bg-[#000E27] hover:bg-blue-700 transition-all duration-300">
                             <span class="text-gray-200 font-semibold">{!!  $faq->question !!}</span>
                             <span class="transition group-open:rotate-180">
                                 <svg fill="none" height="24"  shape-rendering="geometricPrecision" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" viewBox="0 0 24 24" width="24">
