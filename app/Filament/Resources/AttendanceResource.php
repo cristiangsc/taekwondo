@@ -34,6 +34,7 @@ class AttendanceResource extends Resource
                 ->required(),
             Forms\Components\DatePicker::make('date')
                 ->label('Fecha')
+                ->default(now())
                 ->required(),
             Forms\Components\Select::make('status')
                 ->label('Estado')
@@ -75,7 +76,7 @@ class AttendanceResource extends Resource
                     ->label('Estado')
                     ->options(collect(Asistencia::cases())->pluck('value', 'value')),
                 Tables\Filters\SelectFilter::make('student.group')
-                    ->label('Grupo')
+                    ->label('Grupos')
                     ->relationship('student', 'group')
                     ->options(collect(Group::cases())->pluck('value', 'value')),
                 Tables\Filters\Filter::make('date_range')

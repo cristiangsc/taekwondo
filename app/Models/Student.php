@@ -130,4 +130,9 @@ class Student extends Model implements HasMedia
         return $this->hasMany(Testimonial::class);
     }
 
+    public function attendances(): HasMany
+    {
+        return $this->hasMany(Attendance::class);
+    }
+
 }

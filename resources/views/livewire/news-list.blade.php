@@ -25,7 +25,7 @@
                             <div class="text-sm text-gray-400 mb-4">
                                 {{ $latestNews->created_at->format('d/m/Y') }}
                             </div>
-                            <a href="{{ route('news.show', $latestNews->slug) }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                            <a href="{{ route('news.show', $latestNews->slug) }}" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded">
                                 Leer más
                             </a>
                         </div>
@@ -47,7 +47,7 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-white mb-2">
-                            <a href="{{ route('news.show', $item->slug) }}" class="hover:text-blue-400">
+                            <a href="{{ route('news.show', $item->slug) }}" class="hover:text-orange-400">
                                 {{ $item->title }}
                             </a>
                         </h3>

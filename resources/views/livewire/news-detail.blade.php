@@ -23,7 +23,7 @@
 
             <!-- Navigation buttons -->
             <div class="mt-8 flex flex-col sm:flex-row justify-center gap-4">
-                <a href="{{ route('news.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded text-center">
+                <a href="{{ route('news.index') }}" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded text-center">
                     Volver al listado de noticias
                 </a>
                 <a href="{{ route('home') }}" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded text-center">

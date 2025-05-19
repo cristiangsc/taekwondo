@@ -21,7 +21,7 @@ class GalleryDetail extends Component
         return view('livewire.gallery-detail', [
             'gallery' => $this->gallery,
             'images' => $this->gallery->getMedia('gallery'),
-        ])->layout('components.layouts.app', [
+        ])->layout('components.layouts.gallery', [
             'title' => $this->gallery->name
         ]);
     }

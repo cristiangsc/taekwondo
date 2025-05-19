@@ -45,7 +45,7 @@
                 </div>
 
                 <div class="mt-8 text-center">
-                    <a href="{{ route('gallery.show', $gallery->id) }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded mr-2">
+                    <a href="{{ route('gallery.show', $gallery->id) }}" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded mr-2">
                         Ver galería completa
                     </a>
                     <a href="{{ route('gallery.index') }}" class="inline-block bg-gray-600 hover:bg-gray-700 text-white font-semibold py-2 px-4 rounded">

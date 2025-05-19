@@ -18,7 +18,7 @@ class GalleryList extends Component
 
         return view('livewire.gallery-list', [
             'galleries' => $galleries,
-        ])->layout('components.layouts.app', [
+        ])->layout('components.layouts.gallery', [
             'title' => 'Galerías de Imágenes'
         ]);
     }

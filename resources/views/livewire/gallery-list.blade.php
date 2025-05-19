@@ -22,7 +22,7 @@
                     </div>
                     <div class="p-6">
                         <h3 class="text-xl font-semibold text-white mb-2">
-                            <a href="{{ route('gallery.show', $gallery->id) }}" class="hover:text-blue-400">
+                            <a href="{{ route('gallery.show', $gallery->id) }}" class="hover:text-orange-400">
                                 {{ $gallery->name }}
                             </a>
                         </h3>

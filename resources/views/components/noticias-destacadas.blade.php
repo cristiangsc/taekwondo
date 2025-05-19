@@ -14,7 +14,7 @@
                         </div>
                         <div class="p-6">
                             <h3 class="text-xl font-semibold text-white mb-2">
-                                <a href="{{ route('news.show', $noticia->slug) }}" class="hover:text-blue-400">
+                                <a href="{{ route('news.show', $noticia->slug) }}" class="hover:text-orange-400">
                                     {{ $noticia->title }}
                                 </a>
                             </h3>
@@ -24,7 +24,7 @@
                             <div class="text-sm text-gray-400 mb-4">
                                 {{ $noticia->created_at->format('d/m/Y') }}
                             </div>
-                            <a href="{{ route('news.show', $noticia->slug) }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-1 px-3 rounded text-sm">
+                            <a href="{{ route('news.show', $noticia->slug) }}" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-1 px-3 rounded text-sm">
                                 Leer más
                             </a>
                         </div>
@@ -32,7 +32,7 @@
                 @endforeach
             </div>
             <div class="mt-8 text-center">
-                <a href="{{ route('news.index') }}" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-4 rounded">
+                <a href="{{ route('news.index') }}" class="inline-block bg-orange-600 hover:bg-orange-700 text-white font-semibold py-2 px-4 rounded">
                     Ver todas las noticias
                 </a>
             </div>
