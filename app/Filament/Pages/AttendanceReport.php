@@ -6,13 +6,12 @@ use App\Enums\Asistencia;
 use App\Enums\Group;
 use App\Enums\Meses;
 use App\Models\Student;
-use Filament\Forms\Contracts\HasForms;
 use Filament\Pages\Page;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Carbon;
 
-class AttendanceReport extends Page implements HasForms
+class AttendanceReport extends Page
 {
     use Forms\Concerns\InteractsWithForms;
 
