@@ -5,6 +5,7 @@ namespace App\Filament\Pages;
 use App\Enums\Asistencia;
 use App\Enums\Group;
 use App\Enums\Meses;
+use App\Models\Attendance;
 use App\Models\Student;
 use Filament\Pages\Page;
 use Filament\Forms;
@@ -38,34 +39,42 @@ class AttendanceReport extends Page
     {
 
         return [
-            Select::make('year')
-                ->label('Año')
-                ->options([
-                    2024 => '2024',
-                    2025 => '2025',
-                    2026 => '2026',
+            Forms\Components\Placeholder::make('')
+                ->content('Seleccione el año, mes y tipo de grupo para generar el reporte de asistencia.'),
+            Forms\Components\Grid::make(3)
+                ->schema([
+                    Select::make('year')
+                        ->label('Año')
+                        ->options(
+                                Attendance::query()
+                                ->selectRaw('YEAR(date) as year')
+                                ->distinct()
+                                ->orderBy('year', 'desc')
+                                ->pluck('year', 'year')
+                                ->toArray()
+                        )
+                        ->required()
+                        ->default(now()->year)
+                        ->reactive()
+                        ->afterStateUpdated(fn($state) => $this->year = $state),
+
+                    Select::make('month')
+                        ->label('Mes')
+                        ->options(array_column(Meses::cases(), 'name', 'value'))
+                        ->native(false)
+                        ->required()
+                        ->default($this->month)
+                        ->reactive()
+                        ->afterStateUpdated(fn($state) => $this->month = $state),
+
+                    Select::make('group')
+                        ->label('Grupos')
+                        ->options(collect(Group::cases())->pluck('value', 'value'))
+                        ->searchable()
+                        ->nullable()
+                        ->reactive()
+                        ->afterStateUpdated(fn($state) => $this->group = $state),
                 ])
-                ->required()
-                ->default(now()->year)
-                ->reactive()
-                ->afterStateUpdated(fn ($state) => $this->year = $state),
-
-            Select::make('month')
-                ->label('Mes')
-                ->options(array_column(Meses::cases(), 'name', 'value'))
-                ->native(false)
-                ->required()
-                ->default($this->month)
-                ->reactive()
-                ->afterStateUpdated(fn ($state) => $this->month = $state),
-
-            Select::make('group')
-                ->label('Grupos')
-                ->options(collect(Group::cases())->pluck('value', 'value'))
-                ->searchable()
-                ->nullable()
-                ->reactive()
-                ->afterStateUpdated(fn ($state) => $this->group = $state),
         ];
     }
 
@@ -89,7 +98,7 @@ class AttendanceReport extends Page
             ->with(['attendances' => fn($q) => $q->whereBetween('date', [
                 Carbon::create($this->year, $this->month, 1)->startOfMonth(),
                 Carbon::create($this->year, $this->month, 1)->endOfMonth()
-                ])
+            ])
             ])
             ->get();
 

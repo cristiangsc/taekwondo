@@ -10,7 +10,7 @@
     @endphp
 
     <div class="relative overflow-x-auto shadow-md rounded-t-xl  mt-6">
-        <table class="w-full text-sm text-left rtl:text-right text-blue-100">
+        <table class="w-full text-sm text-left rtl:text-right">
             <thead class="text-xs text-white uppercase bg-gray-300">
             <tr>
                 <th class="p-2 border border-gray-300 font-medium text-gray-700">DEPORTISTAS</th>
@@ -23,10 +23,10 @@
             </thead>
             <tbody>
             @foreach ($data as $row)
-                <tr class="odd:bg-white even:bg-gray-50">
-                    <td class="p-2 border border-gray-300 text-gray-800 text-xs">{{ $row['name'] }}</td>
+                <tr>
+                    <td class="p-2 border border-gray-300 text-xs">{{ $row['name'] }}</td>
                     @foreach ($days as $day)
-                        <td class="p-2 border border-gray-300 text-center  {{ $row[$day] === '✓' ? 'bg-green-100 text-green-600' : '' }}">
+                        <td class="p-2 border border-gray-300 text-center text-blue-700">
                             {{ $row[$day] }}
                         </td>
                     @endforeach
@@ -35,5 +35,9 @@
             </tbody>
         </table>
     </div>
+
+
+
+
 
 </x-filament-panels::page>

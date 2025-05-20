@@ -50,13 +50,6 @@
                             class="block py-2 px-3 {{ request()->is('about') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Acerca de</a>
                     </li>
-                    <li>
-                        <a
-                            href="#valores"
-                            @click="if (window.innerWidth < 768) isOpen = false"
-                            class="block py-2 px-3 {{ request()->is('valores') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
-                        >Valores</a>
-                    </li>
 
                     <li>
                         <a
