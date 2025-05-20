@@ -5,12 +5,14 @@ namespace App\Filament\Pages;
 use App\Enums\Asistencia;
 use App\Enums\Group;
 use App\Enums\Meses;
+use App\Exports\AttendanceReportExport;
 use App\Models\Attendance;
 use App\Models\Student;
 use Filament\Pages\Page;
 use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Carbon;
+use Maatwebsite\Excel\Facades\Excel;
 
 class AttendanceReport extends Page
 {
@@ -104,12 +106,8 @@ class AttendanceReport extends Page
 
 
         return $students->map(function ($student) use ($days) {
-            $row = [
-                'name' => $student->full_name ?? "{$student->name} {$student->last_name_paternal}",
-            ];
-
-            $attendanceByDate = $student->attendances->keyBy(fn($a) => Carbon::parse($a->date)->format('Y-m-d')
-            );
+            $row = ['name' => $student->full_name ?? "{$student->name} {$student->last_name_paternal}"];
+            $attendanceByDate = $student->attendances->keyBy(fn($a) => Carbon::parse($a->date)->format('Y-m-d'));
             foreach ($days as $day) {
                 $status = isset($attendanceByDate[$day]) ? $attendanceByDate[$day]->status : null;
                 $row[$day] = match ($status) {
@@ -122,4 +120,16 @@ class AttendanceReport extends Page
             return $row;
         });
     }
+
+    public function exportToExcel(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    {
+        $days = $this->getDaysInMonth();
+        $data = $this->getAttendanceData()->toArray();
+        $month = $this->month;
+        $year = $this->year;
+        $group = $this->group;
+
+        return Excel::download(new AttendanceReportExport($data, $days, $month, $year, $group), 'reporte_asistencia.xlsx');
+    }
+
 }
