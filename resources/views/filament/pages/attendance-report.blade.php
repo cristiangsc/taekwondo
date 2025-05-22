@@ -4,6 +4,10 @@
         {{ $this->form }}
     </form>
 
+    <x-filament::button wire:click="exportToPdf" color="danger" class="mb-4">
+        Exportar a PDF
+    </x-filament::button>
+
     @php
         $days = $this->getDaysInMonth();
         $data = $this->getAttendanceData();

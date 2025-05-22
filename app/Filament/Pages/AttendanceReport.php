@@ -13,6 +13,7 @@ use Filament\Forms;
 use Filament\Forms\Components\Select;
 use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
+use Barryvdh\DomPDF\Facade\Pdf;
 
 class AttendanceReport extends Page
 {
@@ -121,7 +122,7 @@ class AttendanceReport extends Page
         });
     }
 
-    public function exportToExcel(): \Symfony\Component\HttpFoundation\BinaryFileResponse
+    public function exportToExcel()
     {
         $days = $this->getDaysInMonth();
         $data = $this->getAttendanceData()->toArray();
@@ -131,5 +132,36 @@ class AttendanceReport extends Page
 
         return Excel::download(new AttendanceReportExport($data, $days, $month, $year, $group), 'reporte_asistencia.xlsx');
     }
+
+    public function exportToPdf(): \Illuminate\Http\Response
+    {
+        $days = $this->getDaysInMonth();
+        //$data = $this->getAttendanceData();
+        $data = collect($this->getAttendanceData())->map(function ($row) {
+            return collect($row)->mapWithKeys(function ($value, $key) {
+                return [
+                    mb_convert_encoding($key, 'UTF-8', 'auto') => mb_convert_encoding($value, 'UTF-8', 'auto')
+                ];
+            })->toArray();
+        });
+        dd($data);
+        $monthName = Carbon::create()->month((int) $this->month)->locale('es')->isoFormat('MMMM');
+        $year = $this->year;
+        $group = $this->group;
+
+        $logoPath = public_path('images/logo.png'); // Ruta del logo
+
+        $pdf = Pdf::loadView('filament.pages.attendance-report-pdf', [
+            'days' => $days,
+            'data' => $data,
+            'monthName' => ucfirst($monthName),
+            'year' => $year,
+            'group' => $group,
+            'logoPath' => $logoPath,
+        ]);
+
+        return $pdf->download('reporte_asistencia.pdf');
+    }
+
 
 }
