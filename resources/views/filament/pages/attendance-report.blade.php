@@ -4,18 +4,20 @@
         {{ $this->form }}
     </form>
 
-    <x-filament::button wire:click="exportToPdf" color="danger" class="mb-4">
-        Exportar a PDF
-    </x-filament::button>
+    <div class="flex justify-end space-x-2 mb-4 gap-2">
+        <x-filament::button wire:click="exportToPdf" color="danger" class="px-4 py-2">
+            Exportar a PDF
+        </x-filament::button>
+
+        <x-filament::button wire:click="exportToExcel" color="present" class="px-4 py-2">
+            Exportar a Excel
+        </x-filament::button>
+    </div>
 
     @php
         $days = $this->getDaysInMonth();
         $data = $this->getAttendanceData();
     @endphp
-
-    <x-filament::button wire:click="exportToExcel" color="present" class="mb-4">
-        Exportar a Excel
-    </x-filament::button>
 
     <div class="relative overflow-x-auto shadow-md rounded-t-xl  mt-6">
         <table class="w-full text-sm text-left rtl:text-right">

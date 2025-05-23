@@ -4,26 +4,31 @@
     <meta charset="UTF-8">
     <style>
         body {
-            font-family: Arial, sans-serif;
-            font-size: 12px;
+            font-family: DejaVu Sans, sans-serif;
+            font-size: 11px;
         }
+
         table {
             width: 100%;
             border-collapse: collapse;
         }
+
         th, td {
             border: 1px solid #ddd;
-            padding: 8px;
+            padding: 6px;
             text-align: center;
         }
+
         th {
             background-color: #f4f4f4;
         }
+
         .logo {
             text-align: center;
             margin-bottom: 20px;
         }
     </style>
+    <title>Reporte de asistencia mensual</title>
 </head>
 <body>
 <div class="logo">
@@ -51,7 +56,7 @@
     <tbody>
     @foreach ($data as $row)
         <tr>
-            <td>{{ $row['name'] }}</td>
+            <td style="text-align: left;">{{ $row['name'] }}</td>
             @foreach ($days as $day)
                 <td>
                     {{ $row[$day] }}

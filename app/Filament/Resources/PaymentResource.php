@@ -9,6 +9,7 @@ use Barryvdh\DomPDF\Facade\Pdf;
 use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
+use Filament\Tables\Columns\Summarizers\Sum;
 use Hugomyb\FilamentMediaAction\Tables\Actions\MediaAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -111,6 +112,7 @@ class PaymentResource extends Resource
                     ->label('Monto')
                     ->prefix('$ ')
                     ->numeric()
+                    ->summarize([Sum::make()->label('Totales')->prefix('$ ')])
                     ->sortable(),
                 Tables\Columns\TextColumn::make('next_payment_due')
                     ->label('Próximo Pago')

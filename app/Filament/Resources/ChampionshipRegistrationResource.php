@@ -50,6 +50,7 @@ class ChampionshipRegistrationResource extends Resource
                     ->required(),
                 Forms\Components\DatePicker::make('registration_date')
                     ->label('Fecha de Inscripción')
+                    ->default( now())
                     ->required(),
                 Forms\Components\TextInput::make('registration_fee')
                     ->label('Cuota de Inscripción')

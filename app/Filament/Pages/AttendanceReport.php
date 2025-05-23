@@ -15,6 +15,7 @@ use Illuminate\Support\Carbon;
 use Maatwebsite\Excel\Facades\Excel;
 use Barryvdh\DomPDF\Facade\Pdf;
 
+
 class AttendanceReport extends Page
 {
     use Forms\Concerns\InteractsWithForms;
@@ -122,7 +123,7 @@ class AttendanceReport extends Page
         });
     }
 
-    public function exportToExcel()
+    public function exportToExcel(): \Symfony\Component\HttpFoundation\BinaryFileResponse
     {
         $days = $this->getDaysInMonth();
         $data = $this->getAttendanceData()->toArray();
@@ -133,23 +134,15 @@ class AttendanceReport extends Page
         return Excel::download(new AttendanceReportExport($data, $days, $month, $year, $group), 'reporte_asistencia.xlsx');
     }
 
-    public function exportToPdf(): \Illuminate\Http\Response
+    public function exportToPdf(): \Symfony\Component\HttpFoundation\StreamedResponse
     {
+        setlocale(LC_ALL, 'es_ES.UTF-8');
         $days = $this->getDaysInMonth();
-        //$data = $this->getAttendanceData();
-        $data = collect($this->getAttendanceData())->map(function ($row) {
-            return collect($row)->mapWithKeys(function ($value, $key) {
-                return [
-                    mb_convert_encoding($key, 'UTF-8', 'auto') => mb_convert_encoding($value, 'UTF-8', 'auto')
-                ];
-            })->toArray();
-        });
-        dd($data);
+        $data = $this->getAttendanceData();
         $monthName = Carbon::create()->month((int) $this->month)->locale('es')->isoFormat('MMMM');
         $year = $this->year;
         $group = $this->group;
-
-        $logoPath = public_path('images/logo.png'); // Ruta del logo
+        $logoPath = public_path('images/logo2.png'); // Ruta del logo
 
         $pdf = Pdf::loadView('filament.pages.attendance-report-pdf', [
             'days' => $days,
@@ -158,9 +151,9 @@ class AttendanceReport extends Page
             'year' => $year,
             'group' => $group,
             'logoPath' => $logoPath,
-        ]);
+        ])->setPaper('legal', 'landscape');
+        return response()->streamDownload(fn() => print($pdf->stream()), 'reporte_asistencia.pdf');
 
-        return $pdf->download('reporte_asistencia.pdf');
     }
 
 
