@@ -2,7 +2,7 @@
     <div x-data="{
     activeSlide: 0,
     slides: {{ count($slides) }},
-    autoplay: 5000,
+    autoplay: 8000,
     init() {
         if (this.slides > 1) {
             setInterval(() => {
@@ -15,10 +15,10 @@
             @foreach ($slides as $index => $slide)
                 <div
                     x-show="activeSlide === {{ $index }}"
-                    x-transition:enter="transition ease-out duration-500"
+                    x-transition:enter="transition ease-in-out duration-1500"
                     x-transition:enter-start="opacity-0 transform translate-x-full"
                     x-transition:enter-end="opacity-100 transform translate-x-0"
-                    x-transition:leave="transition ease-in duration-500"
+                    x-transition:leave="transition ease-in-out duration-1500"
                     x-transition:leave-start="opacity-100 transform translate-x-0"
                     x-transition:leave-end="opacity-0 transform -translate-x-full"
                     class="absolute top-0 left-0 w-full h-full"

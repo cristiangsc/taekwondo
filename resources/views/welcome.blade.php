@@ -15,7 +15,7 @@
 
 </head>
 <body>
-
+<button id="scrollTopButton">↑</button>
 <x-navigation-menu/>
 <x-carousel/>
 <x-about-section/>
@@ -28,7 +28,27 @@
 <x-contact-form/>
 <x-footer/>
 
+<script>
+    const scrollTopButton = document.getElementById('scrollTopButton');
 
+    // Mostrar el botón al hacer scroll
+    window.addEventListener('scroll', () => {
+        if (window.scrollY > 100) {
+            scrollTopButton.style.display = 'flex';
+        } else {
+            scrollTopButton.style.display = 'none';
+        }
+    });
+
+    // Desplazar al inicio al hacer clic
+    scrollTopButton.addEventListener('click', () => {
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth',
+        });
+    });
+</script>
 
 </body>
+
 </html>

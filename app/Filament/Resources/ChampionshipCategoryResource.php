@@ -17,7 +17,7 @@ class ChampionshipCategoryResource extends Resource
     protected static ?string $model = ChampionshipCategory::class;
 
     protected static ?string $navigationIcon = 'carbon-category';
-    protected static ?string $navigationGroup = 'Championships';
+    protected static ?string $navigationGroup = 'Configuración';
     protected static ?string $navigationLabel = 'Categorías';
     protected static ?string $breadcrumb = 'Categorías';
 

@@ -18,6 +18,7 @@ class GradeResource extends Resource
     protected static ?string $navigationIcon = 'hugeicons-navigator-01';
     protected static ?string $navigationLabel = 'Grados';
     protected static ?string $breadcrumb = 'Grados';
+    protected static ?string $navigationGroup = 'Configuración';
 
     public static function form(Form $form): Form
     {
