@@ -11,18 +11,18 @@
         }
     }
 }" class="relative w-full">
-        <div class="relative h-64 overflow-hidden rounded-lg md:h-[500px]">
+        <div class="relative h-64 overflow-hidden rounded-lg md:h-[600px]">
             @foreach ($slides as $index => $slide)
                 <div
                     x-show="activeSlide === {{ $index }}"
-                    x-transition:enter="transition ease-in-out duration-1500"
+                    x-transition:enter="transition ease-[cubic-bezier(0.25,1,0.5,1)] duration-[2000ms]"
                     x-transition:enter-start="opacity-0 transform translate-x-full"
                     x-transition:enter-end="opacity-100 transform translate-x-0"
-                    x-transition:leave="transition ease-in-out duration-1500"
+                    x-transition:leave="transition ease-[cubic-bezier(0.25,1,0.5,1)] duration-[2000ms]"
                     x-transition:leave-start="opacity-100 transform translate-x-0"
                     x-transition:leave-end="opacity-0 transform -translate-x-full"
                     class="absolute top-0 left-0 w-full h-full"
-                    style="display: {{ $index == 0 ? 'block' : 'none' }};"
+                    style="will-change: transform, opacity; display: {{ $index == 0 ? 'block' : 'none' }};"
                 >
                     <img
                         src="{{ $slide->getFirstMediaUrl('carrusel') }}"

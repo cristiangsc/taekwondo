@@ -41,17 +41,6 @@ class AboutMeResource extends Resource
                     ->maxLength(65535)
                     ->label('Visión')
                     ->columnSpanFull(),
-                SpatieMediaLibraryFileUpload::make('imagenes')
-                    ->label('Imágenes')
-                    ->collection('acerca_de')
-                    ->image()
-                    ->multiple()
-                    ->responsiveImages()
-                    ->imageEditor()
-                    ->openable()
-                    ->optimize('jpg')
-                    ->resize(30)
-                    ->columnSpanFull()
             ]);
     }
 
