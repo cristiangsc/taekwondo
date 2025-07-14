@@ -11,7 +11,7 @@
         }
     }
 }" class="relative w-full">
-        <div class="relative h-64 overflow-hidden rounded-lg md:h-[600px]">
+        <div class="relative h-64 overflow-hidden rounded-lg md:h-[650px]">
             @foreach ($slides as $index => $slide)
                 <div
                     x-show="activeSlide === {{ $index }}"

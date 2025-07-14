@@ -1,7 +1,9 @@
 <section id="alianzas">
-    <div class="bg-[#000E27] py-8">
+    <div class="bg-[#000E27] py-20">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl text-center mb-8">Nuestras Alianzas</h2>
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
+                Nuestras Alianzas
+            </h1>
             <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-4 lg:grid-cols-4 xl:grid-cols-4 gap-6">
                 @foreach($partnerships as $partnership)
                     <div

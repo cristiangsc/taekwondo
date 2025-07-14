@@ -1,13 +1,16 @@
 <div>
     <div class="bg-[#000E27] py-8">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
+                Noticias
+            </h1>
             <!-- News detail -->
-            <div class="bg-[#001A41] rounded-lg shadow-lg overflow-hidden">
+            <div class="bg-[#000E16] rounded-lg shadow-lg overflow-hidden">
                 <div class="aspect-w-16 aspect-h-9">
                     <img
                         src="{{ $news->getFirstMediaUrl('image') }}"
                         alt="{{ $news->title }}"
-                        class="w-full h-[700px] object-fill"
+                        class="w-full h-auto object-cover"
                     >
                 </div>
                 <div class="p-6 md:p-8">
@@ -15,7 +18,7 @@
                     <div class="text-sm text-gray-400 mb-6">
                         {{ $news->created_at->format('d/m/Y') }}
                     </div>
-                    <div class="prose prose-lg prose-invert max-w-none text-gray-300">
+                    <div class="prose prose-lg prose-invert max-w-none text-gray-300 text-justify">
                         {!! $news->content !!}
                     </div>
                 </div>

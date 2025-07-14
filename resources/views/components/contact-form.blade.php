@@ -1,7 +1,9 @@
 <section class="bg-[#EE5E10] py-12 relative z-0" id="contacto">
     <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="text-center mb-12">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl">Contáctanos</h2>
+        <div class="text-center mb-8">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
+                Contáctanos
+            </h1>
             <p class="mt-4 text-lg text-gray-200 max-w-2xl mx-auto">¿Tienes alguna pregunta o estás interesado en nuestras clases? Completa el formulario y nos pondremos en contacto contigo lo antes posible.</p>
         </div>
 

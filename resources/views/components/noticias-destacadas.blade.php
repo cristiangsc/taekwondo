@@ -1,24 +1,26 @@
 <section id="noticias">
     <div class="bg-[#000E27] py-8">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl text-center mb-8">Noticias Destacadas</h2>
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
+                Noticias Destacadas
+            </h1>
             <div class="grid grid-cols-1 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-4 xl:grid-cols-4 gap-6 ">
                 @foreach($noticias as $noticia)
-                    <div class="bg-[#000E27] rounded-lg shadow-lg overflow-hidden">
+                    <div class="bg-[#000E16] rounded-lg overflow-hidden transition-transform duration-300 hover:scale-105 hover:shadow-xl">
                         <div class="aspect-w-16 aspect-h-9">
                             <img
                                 src="{{ $noticia->getFirstMediaUrl('image') }}"
                                 alt="{{ $noticia->title }}"
-                                class="w-full h-48 object-cover"
+                                class="w-full h-48 md:h-56 lg:h-48 object-cover"
                             >
                         </div>
                         <div class="p-6">
-                            <h3 class="text-xl font-semibold text-white mb-2">
+                            <h3 class="text-lg font-semibold text-white mb-2">
                                 <a href="{{ route('news.show', $noticia->slug) }}" class="hover:text-orange-400">
                                     {{ $noticia->title }}
                                 </a>
                             </h3>
-                            <p class="text-gray-300 mb-4">
+                            <p class="text-gray-300 mb-4 text-justify">
                                 {!! Str::limit(strip_tags($noticia->content), 150) !!}
                             </p>
                             <div class="text-sm text-gray-400 mb-4">

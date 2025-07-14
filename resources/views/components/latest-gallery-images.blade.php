@@ -1,8 +1,9 @@
 <section id="gallery">
     <div class="bg-[#000E27] py-8 pb-12 relative z-0">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl text-center mb-8">Galería de
-                Imágenes</h2>
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
+                Galería de Imágenes
+            </h1>
             @if($images->isNotEmpty() && $gallery)
                 <div class="grid grid-cols-3 gap-3">
                     {{-- Imagen principal --}}

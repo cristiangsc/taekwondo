@@ -1,8 +1,9 @@
 <section id="testimonials">
-    <div class="bg-[#000E27] py-8 relative z-0" x-data="carousel({{ $testimonials->toJson() }})">
+    <div class="bg-[#000E27] pt-8 pb-16 relative z-0" x-data="carousel({{ $testimonials->toJson() }})">
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 class="text-3xl font-bold tracking-tight text-white sm:text-4xl text-center mb-8">Testimonios</h2>
-
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
+                Testimonios
+            </h1>
             @if($testimonials->isNotEmpty())
                 <div class="relative">
                     <!-- Carrusel -->
