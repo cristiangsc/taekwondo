@@ -9,4 +9,7 @@ use Filament\Resources\Pages\CreateRecord;
 class CreateValores extends CreateRecord
 {
     protected static string $resource = ValoresResource::class;
+    protected static ?string $title = 'Registrar Valor Cuota';
+
+
 }

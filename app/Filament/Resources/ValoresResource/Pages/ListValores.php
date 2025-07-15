@@ -15,7 +15,9 @@ class ListValores extends ListRecords
     {
         return [
             Actions\CreateAction::make()
-            ->label('Registrar valores'),
+                ->label('Registrar valores')
+                ->modalWidth('sm')
+                ->modalHeading('Registrar Valor Cuota')
         ];
     }
 }
