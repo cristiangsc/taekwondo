@@ -22,6 +22,11 @@ class StudentResource extends Resource
     protected static ?string $navigationIcon = 'gmdi-sports-martial-arts-o';
     protected static ?string $navigationLabel = 'Deportistas';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
+
     public static function form(Form $form): Form
     {
         return $form

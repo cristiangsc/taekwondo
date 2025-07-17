@@ -18,6 +18,10 @@ class UserResource extends Resource
     protected static ?string $navigationLabel = 'Usuarios';
     protected static ?string $breadcrumb = 'Usuarios';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {
