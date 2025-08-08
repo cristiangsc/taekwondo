@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Gender;
 use App\Enums\Group;
+use App\Enums\Relacion;
 use App\Filament\Resources\StudentResource\Pages;
 use App\Models\Student;
 use Filament\Forms;
@@ -101,7 +102,36 @@ class StudentResource extends Resource
                             ->prefixIcon('heroicon-o-user')
                             ->label('Representante y/o Apoderado')
                             ->relationship('representative', 'name')
-                            ->default(null),
+                            ->default(null)
+                            ->createOptionForm([
+                                Forms\Components\TextInput::make('name')
+                                    ->prefixIcon('heroicon-o-user')
+                                    ->label('Nombre completo')
+                                    ->required()
+                                    ->maxLength(255),
+                                Forms\Components\Select::make('relationship')
+                                    ->prefixIcon('heroicon-o-user-group')
+                                    ->label('Relación')
+                                    ->options(collect(Relacion::cases())->pluck('value', 'value'))
+                                    ->required(),
+                                Forms\Components\TextInput::make('phone_number')
+                                    ->label('Teléfono')
+                                    ->prefixIcon('heroicon-o-phone')
+                                    ->tel()
+                                    ->telRegex('/^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\.\/0-9]*$/')
+                                    ->minLength(9)
+                                    ->maxLength(11)
+                                    ->default(null),
+                                Forms\Components\TextInput::make('email')
+                                    ->prefixIcon('heroicon-o-envelope')
+                                    ->email()
+                                    ->maxLength(255)
+                                    ->default(null),
+                                Forms\Components\Textarea::make('address')
+                                    ->label('Dirección')
+                                    ->columnSpanFull(),
+                            ]),
+
                         Forms\Components\DatePicker::make('admission_date')
                             ->label('Fecha de Ingreso')
                             ->required(),
@@ -120,7 +150,7 @@ class StudentResource extends Resource
                             ->image()
                             ->imageEditor()
                             ->openable()
-                            ->optimize('jpg','png')
+                            ->optimize('jpg', 'png')
                             ->columnSpanFull()
                     ]),
             ]);
@@ -165,7 +195,7 @@ class StudentResource extends Resource
                     ->sortable()
                     ->searchable()
                     ->badge()
-                    ->color(fn (string $state): string => $state >= 18 ? 'success' : 'danger'),
+                    ->color(fn(string $state): string => $state >= 18 ? 'success' : 'danger'),
                 Tables\Columns\TextColumn::make('phone_number')
                     ->alignCenter()
                     ->label('Teléfono')
@@ -184,7 +214,7 @@ class StudentResource extends Resource
                     ->searchable()
                     ->badge()
                     ->color(
-                        fn (string $state): string => match ($state) {
+                        fn(string $state): string => match ($state) {
                             Group::Preinfantil->value => 'primary',
                             Group::Infantil->value => 'warning',
                             Group::JuvenilAdulto->value => 'success',
@@ -213,7 +243,7 @@ class StudentResource extends Resource
                 Tables\Columns\IconColumn::make('use_image')
                     ->label('¿Autoriza imagen?')
                     ->color(
-                        fn (string $state): string => $state ? 'success' : 'danger'
+                        fn(string $state): string => $state ? 'success' : 'danger'
                     )
                     ->alignCenter()
                     ->boolean(),
@@ -249,7 +279,6 @@ class StudentResource extends Resource
                 ]),
             ]);
     }
-
 
 
     public static function getPages(): array
