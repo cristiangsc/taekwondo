@@ -18,7 +18,7 @@ class IncomeResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
     protected static ?string $navigationGroup = 'Club';
     protected static ?string $navigationLabel = 'Ingresos';
-    protected static ?int $navigationSort = 5;
+    protected static ?int $navigationSort = 2;
 
     public static function form(Form $form): Form
     {
@@ -29,8 +29,15 @@ class IncomeResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('income_type_id')
+                    ->label('Tipo de Ingreso')
                     ->relationship('income_type', 'name')
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Tipo de Ingreso')
+                            ->required()
+                            ->maxLength(255),
+                    ]),
                 Forms\Components\TextInput::make('anio')
                     ->label('Año')
                     ->default(date('Y'))

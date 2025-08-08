@@ -30,9 +30,16 @@ class ExpenseResource extends Resource
                     ->required()
                     ->numeric(),
                 Forms\Components\Select::make('expense_type_id')
+                    ->label('Tipo de Gasto')
                     ->relationship('expense_type', 'name')
                     ->label('Tipo de Gasto')
-                    ->required(),
+                    ->required()
+                    ->createOptionForm([
+                        Forms\Components\TextInput::make('name')
+                            ->label('Tipo de Gasto')
+                            ->required()
+                            ->maxLength(255),
+                    ]),
                 Forms\Components\TextInput::make('anio')
                     ->label('Año')
                     ->default(date('Y'))

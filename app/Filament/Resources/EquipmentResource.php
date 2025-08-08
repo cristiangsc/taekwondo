@@ -43,11 +43,14 @@ class EquipmentResource extends Resource
                             ->relationship('category', 'name')
                             ->required()
                             ->createOptionForm([
-                                Forms\Components\TextInput::make('name')
-                                    ->label('Nombre')
-                                    ->required(),
-                                Forms\Components\Textarea::make('description')
-                                    ->label('Descripción'),
+                                Forms\Components\Section::make('Registrar una Categoría')
+                                    ->schema([
+                                        Forms\Components\TextInput::make('name')
+                                            ->label('Nombre')
+                                            ->required(),
+                                        Forms\Components\Textarea::make('description')
+                                            ->label('Descripción'),
+                                    ])
                             ]),
                         Forms\Components\Textarea::make('description')
                             ->label('Descripción')
@@ -141,7 +144,7 @@ class EquipmentResource extends Resource
                     ->toggleable(),
                 Tables\Columns\TextColumn::make('condition')
                     ->label('Condición')
-                    ->formatStateUsing(fn (string $state): string => match($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'excelente' => 'Excelente',
                         'bueno' => 'Bueno',
                         'regular' => 'Regular',
@@ -149,7 +152,7 @@ class EquipmentResource extends Resource
                         default => $state
                     })
                     ->badge()
-                    ->color(fn (string $state): string => match($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'excelente' => 'success',
                         'bueno' => 'primary',
                         'regular' => 'warning',
@@ -158,7 +161,7 @@ class EquipmentResource extends Resource
                     }),
                 Tables\Columns\TextColumn::make('status')
                     ->label('Estado')
-                    ->formatStateUsing(fn (string $state): string => match($state) {
+                    ->formatStateUsing(fn(string $state): string => match ($state) {
                         'disponible' => 'Disponible',
                         'prestado' => 'Prestado',
                         'en_mantenimiento' => 'En Mantenimiento',
@@ -167,7 +170,7 @@ class EquipmentResource extends Resource
                         default => $state
                     })
                     ->badge()
-                    ->color(fn (string $state): string => match($state) {
+                    ->color(fn(string $state): string => match ($state) {
                         'disponible' => 'success',
                         'prestado' => 'warning',
                         'en_mantenimiento' => 'info',
