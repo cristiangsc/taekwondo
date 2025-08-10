@@ -5,14 +5,12 @@ namespace App\Livewire;
 use App\Models\Gallery;
 use Illuminate\Contracts\Support\Renderable;
 use Livewire\Component;
-use Livewire\WithPagination;
 
 class GalleryDetail extends Component
 {
-    use WithPagination;
     public $galleryId;
     public $gallery;
-    public $perPage = 12; // Aumentamos a 12 para mejor distribución en grid
+    public $perPage = 12;
 
     public function mount($id): void
     {
@@ -20,18 +18,20 @@ class GalleryDetail extends Component
         $this->gallery = Gallery::findOrFail($id);
     }
 
-    public function loadMore()
+    public function loadMore(): void
     {
         $this->perPage += 12;
     }
 
     public function render(): Renderable
     {
+        // Lista parcial de imágenes (solo las visibles en el grid)
         $images = $this->gallery->media()
             ->where('collection_name', 'gallery')
-            ->paginate($this->perPage);
+            ->take($this->perPage)
+            ->get();
 
-        // Preparamos datos para el lightbox
+        // Todas las imágenes para el lightbox
         $allImages = $this->gallery->media()
             ->where('collection_name', 'gallery')
             ->get()
@@ -39,7 +39,7 @@ class GalleryDetail extends Component
                 return [
                     'id' => $image->id,
                     'thumb' => $image->getUrl('thumb'),
-                    'full' => $image->getUrl(), // URL completa
+                    'full' => $image->getUrl(),
                     'alt' => $this->gallery->name . ' - Imagen ' . ($index + 1),
                     'index' => $index
                 ];
@@ -49,8 +49,9 @@ class GalleryDetail extends Component
             'gallery' => $this->gallery,
             'images' => $images,
             'allImages' => $allImages,
-        ])->layout('components.layouts.gallery', [
-            'title' => $this->gallery->name
+            'hasMore' => $this->gallery->media()
+                    ->where('collection_name', 'gallery')
+                    ->count() > $this->perPage,
         ]);
     }
 }

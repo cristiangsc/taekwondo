@@ -45,7 +45,7 @@
                     </li>
                     <li>
                         <a
-                            href="#about"
+                            href="{{ url('/#about') }}"
                             @click="if (window.innerWidth < 768) isOpen = false"
                             class="block py-2 px-3 {{ request()->is('about') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Acerca de</a>
@@ -53,7 +53,7 @@
 
                     <li>
                         <a
-                            href="#noticias"
+                            href="{{ url('/#noticias') }}"
                             @click="if (window.innerWidth < 768) isOpen = false"
                             class="block py-2 px-3 {{ request()->is('noticias') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Noticias</a>
@@ -61,7 +61,7 @@
 
                     <li>
                         <a
-                            href="#alianzas"
+                            href="{{ url('/#alianzas') }}"
                             @click="if (window.innerWidth < 768) isOpen = false"
                             class="block py-2 px-3 {{ request()->is('alianzas') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Alianzas</a>
@@ -69,7 +69,7 @@
 
                     <li>
                         <a
-                            href="#faq"
+                            href="{{ url('/#faq') }}"
                             @click="if (window.innerWidth < 768) isOpen = false"
                             class="block py-2 px-3 {{ request()->is('faq') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Preguntas Frecuentes</a>
@@ -77,7 +77,7 @@
 
                     <li>
                         <a
-                            href="#gallery"
+                            href="{{ url('/#gallery') }}"
                             @click="if (window.innerWidth < 768) isOpen = false"
                             class="block py-2 px-3 {{ request()->routeIs('gallery.*') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Galería</a>
@@ -85,7 +85,7 @@
 
                     <li>
                         <a
-                            href="#contacto"
+                            href="{{ url('/#contacto') }}"
                             @click="if (window.innerWidth < 768) isOpen = false"
                             class="block py-2 px-3 {{ request()->is('contacto') ? 'text-[#EE5E10]' : 'text-white' }} rounded hover:bg-[#001845] md:hover:bg-transparent md:border-0 md:hover:text-[#EE5E10] md:p-0 transition-colors duration-300"
                         >Contacto</a>

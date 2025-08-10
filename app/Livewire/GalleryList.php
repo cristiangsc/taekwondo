@@ -14,12 +14,12 @@ class GalleryList extends Component
     public $perPage = 12;
     public $sortBy = 'latest'; // latest, oldest, name, images_count
 
-    public function updatedSortBy()
+    public function updatedSortBy(): void
     {
         $this->resetPage();
     }
 
-    public function loadMore()
+    public function loadMore(): void
     {
         $this->perPage += 12;
     }
@@ -59,8 +59,6 @@ class GalleryList extends Component
 
         return view('livewire.gallery-list', [
             'galleries' => $galleries,
-        ])->layout('components.layouts.gallery', [
-            'title' => 'Galerías de Imágenes'
         ]);
     }
 }

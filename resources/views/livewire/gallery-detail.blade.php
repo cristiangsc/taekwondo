@@ -13,7 +13,7 @@
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                             <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path>
                         </svg>
-                        {{ $images->total() }} imágenes
+                       {{ $allImages->count() }} imágenes
                     </span>
                     <span class="flex items-center">
                         <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
@@ -29,7 +29,7 @@
                 <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 xl:grid-cols-6 gap-4">
                     @foreach($images as $index => $image)
                         <div class="group relative aspect-square cursor-pointer"
-                             @click="openLightbox({{ $index + (($images->currentPage() - 1) * $images->perPage()) }})">
+                            @click="openLightbox({{ $allImages->search(fn($img) => $img['id'] === $image->id) }})">
                             <div class="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 z-10 rounded-lg"></div>
                             <img
                                 src="{{ $image->getUrl('thumb') }}"
@@ -49,18 +49,25 @@
                 </div>
 
                 <!-- Load More Button (si hay más páginas) -->
-                @if($images->hasMorePages())
+                @if($hasMore)
                     <div class="text-center mt-8">
                         <button wire:click="loadMore"
+                                wire:loading.attr="disabled"
                                 class="inline-flex items-center px-6 py-3 bg-orange-600 hover:bg-orange-700 text-white font-medium rounded-lg shadow-md hover:shadow-lg transition-all duration-300">
-                            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <svg wire:loading.remove class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-8l-4-4m0 0L8 8m4-4v12"></path>
                             </svg>
-                            Cargar más imágenes
+                            <span wire:loading.remove>Cargar más imágenes</span>
+                            <span wire:loading>
+                <svg class="animate-spin h-5 w-5 text-white mr-2" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24">
+                    <circle class="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" stroke-width="4"></circle>
+                    <path class="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8v4a4 4 0 00-4 4H4z"></path>
+                </svg>
+                Cargando...
+            </span>
                         </button>
                     </div>
                 @endif
-
             @else
                 <div class="text-center py-16 bg-[#001A41] rounded-lg">
                     <svg class="mx-auto h-12 w-12 text-gray-400 mb-4" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -127,7 +134,7 @@
             <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                 <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path>
             </svg>
-            </svg>
+
         </button>
 
         <!-- Image container -->

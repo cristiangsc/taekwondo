@@ -25,8 +25,6 @@ class NewsList extends Component
         return view('livewire.news-list', [
             'latestNews' => $latestNews,
             'news' => $news,
-        ])->layout('components.layouts.news', [
-            'title' => 'Listado de Noticias'
         ]);
     }
 }
