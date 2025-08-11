@@ -2,11 +2,11 @@
 
     <div class="bg-[#000E27] dark:bg-gray-900 py-16">
         <!-- Título Principal -->
-        <div class="container mx-auto px-4 mb-16">
-            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white mb-4">
+        <div class="container mx-auto px-4 mb-14">
+            <h1 class="text-4xl md:text-5xl font-bold text-center text-white">
                 Sobre la Escuela
             </h1>
-            <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+            <div class="w-20 h-1 bg-orange-500 mx-auto"></div>
         </div>
 
         <!-- Historia, Misión y Visión -->
@@ -99,10 +99,6 @@
             word-wrap: break-word;
             overflow-wrap: break-word;
             hyphens: auto;
-        }
-
-        .dark .prose-content {
-            color: #e5e7eb;
         }
 
         .prose-content p {

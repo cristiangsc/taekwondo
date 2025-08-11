@@ -11,12 +11,12 @@ class AboutSchool extends Component
     public $selectedSection = 'history';
     public $isLoading = false;
 
-    public function mount()
+    public function mount(): void
     {
         $this->aboutMe = AboutMe::first() ?? new AboutMe();
     }
 
-    public function selectSection($section)
+    public function selectSection($section): void
     {
         $this->isLoading = true;
         $this->selectedSection = $section;

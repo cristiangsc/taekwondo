@@ -1,9 +1,11 @@
-<section id="gallery">
+<section id="gallery" data-section="gallery">
     <div class="bg-[#000E27] py-8 pb-12 relative z-0">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
-            <h1 class="text-4xl md:text-5xl font-bold text-center text-white dark:text-white pb-10">
-                Galería de Imágenes
+            <h1 class="text-5xl md:text-6xl font-bold text-center text-transparent bg-clip-text bg-gradient-to-r text-white mb-6 tracking-tight">
+                Galería de Imágenes Recientes
             </h1>
+            <div class="w-24 h-1.5 bg-gradient-to-r from-red-500 to-orange-500 mx-auto rounded-full mb-8"></div>
+
             @if($images->isNotEmpty() && $gallery)
                 <!-- Indicador de galería actual -->
                 <div class="text-center mb-6">
