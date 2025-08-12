@@ -4,7 +4,7 @@
         isScrolled: false,
         activeSection: 'home',
         scrollProgress: 0,
-
+        isDesktop: window.innerWidth >= 768,
 
         init() {
             // Detectar scroll y calcular progreso
@@ -16,12 +16,14 @@
                 this.observeSections();
             }
 
-            // Cerrar menú al redimensionar ventana
-            window.addEventListener('resize', () => {
-                if (window.innerWidth >= 768) {
-                    this.isOpen = false;
+            // Resize reactivo: actualiza isDesktop y cierra menú si entramos a escritorio
+              window.addEventListener('resize', () => {
+                this.isDesktop = window.innerWidth >= 768;
+                if (this.isDesktop) {
+                  this.isOpen = false;
+                  document.body.style.overflow = '';
                 }
-            });
+              });
 
             // Detectar sección activa desde URL hash
             this.detectActiveFromUrl();
@@ -83,14 +85,12 @@
         },
 
         toggleMenu() {
-            this.isOpen = !this.isOpen;
-
-            // Prevenir scroll del body cuando el menú está abierto en móvil
-            if (this.isOpen && window.innerWidth < 768) {
-                document.body.style.overflow = 'hidden';
-            } else {
-                document.body.style.overflow = '';
-            }
+              this.isOpen = !this.isOpen;
+                  if (this.isOpen && !this.isDesktop) {
+                    document.body.style.overflow = 'hidden';
+                  } else {
+                    document.body.style.overflow = '';
+                  }
         },
 
         closeMenu() {
@@ -178,7 +178,8 @@
         >
             <div class="relative">
                 <!-- Efecto glow detrás del logo -->
-                <div class="absolute -inset-3 bg-gradient-to-r from-[#EE5E10]/30 to-orange-500/30 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500 animate-pulse"></div>
+                <div
+                    class="absolute -inset-3 bg-gradient-to-r from-[#EE5E10]/30 to-orange-500/30 rounded-xl blur-lg opacity-0 group-hover:opacity-100 transition-all duration-500 animate-pulse"></div>
 
                 <!-- Logo con efectos -->
                 <div class="relative">
@@ -188,22 +189,26 @@
                         alt="Logo Kim's Ñuble Taekwondo"
                     />
                     <!-- Anillo decorativo -->
-                    <div class="absolute -inset-1 rounded-full border-2 border-[#EE5E10]/20 group-hover:border-[#EE5E10]/60 transition-all duration-500 group-hover:rotate-180"></div>
+                    <div
+                        class="absolute -inset-1 rounded-full border-2 border-[#EE5E10]/20 group-hover:border-[#EE5E10]/60 transition-all duration-500 group-hover:rotate-180"></div>
                 </div>
             </div>
 
             <!-- Texto del logo con efectos mejorados -->
             <div class="hidden sm:block">
                 <div class="relative">
-                    <span class="block text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white group-hover:from-[#EE5E10] group-hover:via-orange-400 group-hover:to-yellow-400 transition-all duration-500">
+                    <span
+                        class="block text-xl md:text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-white via-gray-100 to-white group-hover:from-[#EE5E10] group-hover:via-orange-400 group-hover:to-yellow-400 transition-all duration-500">
                         Kim's Ñuble
                     </span>
-                    <span class="block text-sm md:text-base text-gray-400 group-hover:text-orange-300 transition-all duration-300 font-medium">
+                    <span
+                        class="block text-sm md:text-base text-gray-400 group-hover:text-orange-300 transition-all duration-300 font-medium">
                         Taekwondo
                     </span>
 
                     <!-- Línea decorativa -->
-                    <div class="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-400 w-0 group-hover:w-full transition-all duration-500"></div>
+                    <div
+                        class="absolute -bottom-1 left-0 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-400 w-0 group-hover:w-full transition-all duration-500"></div>
                 </div>
             </div>
         </a>
@@ -254,15 +259,16 @@
 
         <!-- Menú principal -->
         <div
-            class="w-full md:block md:w-auto"
-            x-show="isOpen || window.innerWidth >= 768"
+            class="w-full md:block md:w-auto z-50"
+            x-cloak
+            x-show="isOpen || isDesktop"
             x-transition:enter="transition ease-out duration-300 transform"
             x-transition:enter-start="opacity-0 -translate-y-4 scale-95"
             x-transition:enter-end="opacity-100 translate-y-0 scale-100"
             x-transition:leave="transition ease-in duration-200 transform"
             x-transition:leave-start="opacity-100 translate-y-0 scale-100"
             x-transition:leave-end="opacity-0 -translate-y-4 scale-95"
-            @click.outside="if (window.innerWidth < 768) closeMenu()"
+            @click.outside="if (!isDesktop) closeMenu()"
         >
             <ul class="flex flex-col font-medium p-6 md:p-0 mt-4 border border-gray-600/30 rounded-2xl bg-[#000E27]/95 backdrop-blur-xl md:space-x-1 rtl:space-x-reverse md:flex-row md:mt-0 md:border-0 md:bg-transparent shadow-2xl md:shadow-none">
 
@@ -277,16 +283,22 @@
                         }"
                     >
                         <!-- Icono -->
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"/>
                         </svg>
                         <span class="font-medium">Inicio</span>
 
                         <!-- Indicador activo móvil -->
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('home')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('home')"></div>
 
                         <!-- Indicador activo desktop -->
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('home')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('home')"></div>
                     </button>
                 </li>
 
@@ -300,12 +312,18 @@
                             'text-white hover:text-[#EE5E10] hover:bg-white/5': !isActiveSection('about-school-container')
                         }"
                     >
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         <span class="font-medium">Acerca de</span>
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('about')"></div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('about')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('about-school-container')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('about-school-container')"></div>
                     </button>
                 </li>
 
@@ -319,12 +337,18 @@
                             'text-white hover:text-[#EE5E10] hover:bg-white/5': !isActiveSection('noticias')
                         }"
                     >
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-5"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M19 20H5a2 2 0 01-2-2V6a2 2 0 012-2h10a2 2 0 012 2v1m2 13a2 2 0 01-2-2V7m2 13a2 2 0 002-2V9a2 2 0 00-2-2h-5"/>
                         </svg>
                         <span class="font-medium">Noticias</span>
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('noticias')"></div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('noticias')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('noticias')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('noticias')"></div>
                     </button>
                 </li>
 
@@ -338,12 +362,18 @@
                             'text-white hover:text-[#EE5E10] hover:bg-white/5': !isActiveSection('alianzas')
                         }"
                     >
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z"/>
                         </svg>
                         <span class="font-medium">Alianzas</span>
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('alianzas')"></div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('alianzas')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('alianzas')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('alianzas')"></div>
                     </button>
                 </li>
 
@@ -357,12 +387,18 @@
                             'text-white hover:text-[#EE5E10] hover:bg-white/5': !isActiveSection('faq')
                         }"
                     >
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M8.228 9c.549-1.165 2.03-2 3.772-2 2.21 0 4 1.343 4 3 0 1.4-1.278 2.575-3.006 2.907-.542.104-.994.54-.994 1.093m0 3h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
                         </svg>
                         <span class="font-medium">FAQ</span>
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('faq')"></div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('faq')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('faq')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('faq')"></div>
                     </button>
                 </li>
 
@@ -376,12 +412,18 @@
                             'text-white hover:text-[#EE5E10] hover:bg-white/5': !isActiveSection('gallery')
                         }"
                     >
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"/>
                         </svg>
                         <span class="font-medium">Galería</span>
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('gallery')"></div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('gallery')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('gallery')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('gallery')"></div>
                     </button>
                 </li>
 
@@ -395,12 +437,18 @@
                             'text-white hover:text-[#EE5E10] hover:bg-white/5': !isActiveSection('contacto')
                         }"
                     >
-                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
+                        <svg class="w-5 h-5 mr-3 md:mr-2 transition-all duration-300 group-hover:scale-110" fill="none"
+                             stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/>
                         </svg>
                         <span class="font-medium">Contacto</span>
-                        <div class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden" x-show="isActiveSection('contacto')"></div>
-                        <div class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block" x-show="isActiveSection('contacto')"></div>
+                        <div
+                            class="absolute left-0 top-1/2 -translate-y-1/2 w-1 h-8 bg-gradient-to-b from-[#EE5E10] to-orange-500 rounded-r-full md:hidden"
+                            x-show="isActiveSection('contacto')"></div>
+                        <div
+                            class="absolute bottom-0 left-1/2 -translate-x-1/2 w-6 h-0.5 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-t-full hidden md:block"
+                            x-show="isActiveSection('contacto')"></div>
                     </button>
                 </li>
 
@@ -411,15 +459,19 @@
                         class="group relative w-full md:w-auto inline-flex items-center justify-center px-6 py-3 text-sm font-bold text-white bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-xl hover:from-[#EE5E10] hover:to-orange-600 focus:outline-none focus:ring-2 focus:ring-[#EE5E10] focus:ring-offset-2 focus:ring-offset-[#000E27] transform hover:scale-105 transition-all duration-300 shadow-xl hover:shadow-2xl overflow-hidden"
                     >
                         <!-- Efecto de brillo -->
-                        <div class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
+                        <div
+                            class="absolute inset-0 bg-gradient-to-r from-transparent via-white/20 to-transparent -skew-x-12 -translate-x-full group-hover:translate-x-full transition-transform duration-1000"></div>
 
-                        <svg class="w-4 h-4 mr-2 group-hover:animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 10V3L4 14h7v7l9-11h-7z"/>
+                        <svg class="w-4 h-4 mr-2 group-hover:animate-bounce" fill="none" stroke="currentColor"
+                             viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                  d="M13 10V3L4 14h7v7l9-11h-7z"/>
                         </svg>
                         <span class="relative">Clase Gratis</span>
 
                         <!-- Glow effect -->
-                        <div class="absolute -inset-1 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-xl blur-lg opacity-30 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
+                        <div
+                            class="absolute -inset-1 bg-gradient-to-r from-[#EE5E10] to-orange-500 rounded-xl blur-lg opacity-30 group-hover:opacity-100 transition-opacity duration-300 -z-10"></div>
                     </button>
                 </li>
             </ul>
@@ -428,7 +480,7 @@
 
     <!-- Overlay para móvil -->
     <div
-        x-show="isOpen && window.innerWidth < 768"
+        x-show="isOpen && !isDesktop"
         x-transition:enter="transition ease-out duration-300"
         x-transition:enter-start="opacity-0"
         x-transition:enter-end="opacity-100"
@@ -441,4 +493,3 @@
     ></div>
 </nav>
 
-<!-- Espaciador para compensar el menú fijo -->
