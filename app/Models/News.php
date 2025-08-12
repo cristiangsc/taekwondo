@@ -11,7 +11,7 @@ class News extends Model implements HasMedia
 {
     use InteractsWithMedia;
 
-    protected $fillable = ['title', 'slug', 'content'];
+    protected $fillable = ['title', 'slug', 'content','published'];
 
     protected static function boot(): void
     {

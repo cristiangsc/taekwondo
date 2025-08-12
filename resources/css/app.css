@@ -31,13 +31,13 @@ button.indicator.active {
     background-color: white;
 }
 
-/* Prevenir re-renderizado global */
-body, html {
-    backface-visibility: hidden;
-    transform: translateZ(0);
-}
+/*!* Prevenir re-renderizado global *!*/
+/*body, html {*/
+/*    backface-visibility: hidden;*/
+/*    transform: translateZ(0);*/
+/*}*/
 
-/* Optimizar Livewire */
-[wire\:loading] {
-    transition: opacity 0.2s ease;
-}
+/*!* Optimizar Livewire *!*/
+/*[wire\:loading] {*/
+/*    transition: opacity 0.2s ease;*/
+/*}*/

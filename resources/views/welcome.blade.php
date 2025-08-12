@@ -1,6 +1,5 @@
 <x-layouts.app>
     <x-carousel/>
-{{--    <x-about-section/>--}}
     <livewire:about-school/>
     <x-valores-card/>
     <x-noticias-destacadas/>
