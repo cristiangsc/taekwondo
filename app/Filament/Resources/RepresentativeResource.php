@@ -4,6 +4,7 @@ namespace App\Filament\Resources;
 
 use App\Enums\Relacion;
 use App\Filament\Resources\RepresentativeResource\Pages;
+use App\Filament\Resources\RepresentativeResource\RelationManagers\StudentsRelationManager;
 use App\Models\Representative;
 use Filament\Forms;
 use Filament\Forms\Form;
@@ -112,6 +113,12 @@ class RepresentativeResource extends Resource
             ]);
     }
 
+    public static function getRelations(): array
+    {
+        return [
+            StudentsRelationManager::make()
+        ];
+    }
 
     public static function getPages(): array
     {

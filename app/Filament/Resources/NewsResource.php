@@ -9,11 +9,13 @@ use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Components\TextInput;
+use Filament\Forms\Components\Toggle;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Columns\SpatieMediaLibraryImageColumn;
 use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Columns\ToggleColumn;
 use Filament\Tables\Table;
 use Illuminate\Support\Str;
 
@@ -49,6 +51,10 @@ class NewsResource extends Resource
                         RichEditor::make('content')
                             ->required()
                             ->label('Contenido'),
+                        Toggle::make('published')
+                            ->label('Publicar')
+                            ->default(true)
+                            ->required(),
                         SpatieMediaLibraryFileUpload::make('image')
                             ->label('Imagen')
                             ->collection('image')
@@ -73,11 +79,16 @@ class NewsResource extends Resource
                     ->collection('image')
                     ->circular()
                     ->size(50),
+                ToggleColumn::make('published')
+                    ->label('Publicado')
+                    ->onIcon('heroicon-m-bolt')
+                    ->sortable()
+                    ->alignCenter(),
                 TextColumn::make('created_at')
                     ->label('Fecha de creación')
                     ->dateTime()
                     ->sortable()
-                    ->toggleable(isToggledHiddenByDefault: true),
+                    ->toggleable(isToggledHiddenByDefault: false),
                 TextColumn::make('updated_at')
                     ->label('Fecha de actualización')
                     ->dateTime()
@@ -86,7 +97,7 @@ class NewsResource extends Resource
             ])->defaultSort('created_at', 'desc')
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->label(''),
+                    ->label(''),
                 Tables\Actions\DeleteAction::make()
                     ->modalHeading('Está Eliminando la Noticia')
                     ->label(''),
@@ -96,13 +107,6 @@ class NewsResource extends Resource
                     Tables\Actions\DeleteBulkAction::make(),
                 ]),
             ]);
-    }
-
-    public static function getRelations(): array
-    {
-        return [
-            //
-        ];
     }
 
     public static function getPages(): array

@@ -31,17 +31,17 @@ class NewsList extends Component
         // Inicialización si es necesaria
     }
 
-    public function updatedSearch()
+    public function updatedSearch(): void
     {
         $this->resetPage();
     }
 
-    public function updatedSortBy()
+    public function updatedSortBy(): void
     {
         $this->resetPage();
     }
 
-    public function updatedPerPage()
+    public function updatedPerPage(): void
     {
         $this->resetPage();
     }
@@ -77,6 +77,9 @@ class NewsList extends Component
             case 'title':
                 $query->orderBy('title', 'asc');
                 break;
+            case 'views':
+                $query->orderBy('views', 'desc');
+                break;
             case 'created_at':
             default:
                 $query->orderBy('created_at', 'desc');
@@ -93,7 +96,7 @@ class NewsList extends Component
     }
 
     // Método para limpiar todos los filtros
-    public function clearFilters()
+    public function clearFilters(): void
     {
         $this->search = '';
         $this->sortBy = 'created_at';
@@ -101,9 +104,4 @@ class NewsList extends Component
         $this->resetPage();
     }
 
-    // Método para optimizar la paginación con wire:navigate
-    public function paginationView()
-    {
-        return 'livewire.custom-pagination';
-    }
 }

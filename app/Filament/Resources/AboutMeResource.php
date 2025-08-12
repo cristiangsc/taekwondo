@@ -5,6 +5,7 @@ namespace App\Filament\Resources;
 use App\Filament\Resources\AboutMeResource\Pages;
 use App\Models\AboutMe;
 use Filament\Forms;
+use Filament\Forms\Components\RichEditor;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
@@ -26,17 +27,17 @@ class AboutMeResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Textarea::make('history')
+                RichEditor::make('history')
                     ->required()
                     ->maxLength(65535)
                     ->label('Historia')
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('mission')
+                RichEditor::make('mission')
                     ->required()
                     ->maxLength(65535)
                     ->label('Misión')
                     ->columnSpanFull(),
-                Forms\Components\Textarea::make('vision')
+                RichEditor::make('vision')
                     ->required()
                     ->maxLength(65535)
                     ->label('Visión')
@@ -63,13 +64,6 @@ class AboutMeResource extends Resource
                     ->searchable()
                     ->html()
                     ->limit(50),
-                SpatieMediaLibraryImageColumn::make('imagenes')
-                    ->label('Imágenes')
-                    ->collection('acerca_de')
-                    ->limit(4)
-                    ->circular()
-                    ->size(50)
-                    ->wrap(),
                 Tables\Columns\TextColumn::make('created_at')
                     ->label('Creado el')
                     ->dateTime()

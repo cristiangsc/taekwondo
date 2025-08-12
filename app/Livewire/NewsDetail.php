@@ -10,11 +10,16 @@ class NewsDetail extends Component
 {
     public $slug;
     public $news;
+    public bool $viewRecorded = false;
 
     public function mount($slug): void
     {
-        $this->slug = $slug;
-        $this->news = News::where('slug', $slug)->firstOrFail();
+        $this->news = News::where('slug', $slug)
+            ->where('published', true)
+            ->firstOrFail();
+
+        // Registrar vista cuando se monta el componente
+        $this->viewRecorded = $this->news->recordView();
     }
 
     public function render():Renderable

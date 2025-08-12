@@ -31,6 +31,7 @@
                     <select wire:model.live="sortBy" class="px-3 py-2 bg-[#000E16] border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500">
                         <option value="created_at">Más recientes</option>
                         <option value="title">Alfabético</option>
+                        <option value="views">Más vistas</option>
                     </select>
                     <select wire:model.live="perPage" class="px-3 py-2 bg-[#000E16] border border-gray-600 rounded-lg text-white focus:outline-none focus:ring-2 focus:ring-orange-500">
                         <option value="6">6 por página</option>
