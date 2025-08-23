@@ -19,9 +19,12 @@
 <body>
 <button id="scrollTopButton">↑</button>
 <x-navigation-menu/>
+
+
 <main>
     {{ $slot }}
 </main>
+
 <x-footer/>
 @livewireScripts
 @stack('scripts')
