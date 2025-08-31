@@ -27,9 +27,11 @@ return new class extends Migration
             $table->foreignId('grade_id')->nullable()->constrained('grades')->onDelete('set null');
             $table->foreignId('representative_id')->nullable()->constrained('representatives')->onDelete('set null');
             $table->boolean('use_image')->default(false);
+            $table->string('password');
             $table->date('admission_date');
             $table->timestamps();
         });
+
     }
 
     /**

@@ -14,6 +14,13 @@ return [
     |
     */
 
+    'panel-providers' => [
+        App\Providers\Filament\AdminPanelProvider::class,
+        App\Providers\Filament\DeportistaPanelProvider::class,
+        App\Providers\Filament\ApoderadoPanelProvider::class,
+    ],
+
+
     'broadcasting' => [
 
         // 'echo' => [

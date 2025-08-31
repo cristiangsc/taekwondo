@@ -7,13 +7,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Casts\Attribute;
+use Illuminate\Foundation\Auth\User;
+use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
 
-class Student extends Model implements HasMedia
+class Student extends User implements HasMedia
 {
     use InteractsWithMedia;
+    use Notifiable;
 
     protected $fillable = [
         'rut',
@@ -31,8 +34,22 @@ class Student extends Model implements HasMedia
         'admission_date',
         'grade_id',
         'group',
-        'full_name'
+        'full_name',
+        'password',
     ];
+
+    protected $hidden = [
+        'password',
+        'remember_token',
+    ];
+
+    protected function casts(): array
+    {
+        return [
+            'password' => 'hashed',
+        ];
+    }
+
 
     public function registerMediaConversions(Media $media = null): void
     {

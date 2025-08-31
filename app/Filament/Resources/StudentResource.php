@@ -66,6 +66,12 @@ class StudentResource extends Resource
                             ->relationship('grade', 'name')
                             ->required()
                             ->default(null),
+                        Forms\Components\TextInput::make('password')
+                            ->prefixIcon('heroicon-o-key')
+                            ->label('Contraseña')
+                            ->password()
+                            ->required()
+                            ->maxLength(20),
                     ]),
                 Forms\Components\Section::make('Datos de Contacto')
                     ->columns(3)

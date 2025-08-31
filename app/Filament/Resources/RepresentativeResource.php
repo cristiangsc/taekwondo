@@ -55,6 +55,12 @@ class RepresentativeResource extends Resource
                 Forms\Components\Textarea::make('address')
                     ->label('Dirección')
                     ->columnSpanFull(),
+                Forms\Components\TextInput::make('password')
+                    ->prefixIcon('heroicon-o-key')
+                    ->label('Contraseña')
+                    ->password()
+                    ->required()
+                    ->maxLength(20),
             ]);
     }
 
