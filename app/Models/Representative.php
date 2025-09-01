@@ -7,10 +7,15 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Foundation\Auth\User;
 use Illuminate\Notifications\Notifiable;
+use Spatie\MediaLibrary\HasMedia;
+use Spatie\MediaLibrary\InteractsWithMedia;
+use Spatie\Permission\Traits\HasRoles;
 
-class Representative extends  User
+class Representative extends  User implements HasMedia
 {
     use Notifiable;
+    use InteractsWithMedia;
+    use HasRoles;
 
     protected $fillable = [
         'name',

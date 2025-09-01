@@ -39,7 +39,6 @@ class ApoderadoPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Apoderado/Widgets'), for: 'App\\Filament\\Apoderado\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

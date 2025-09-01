@@ -1,13 +1,12 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Apoderado\Resources;
 
 use App\Enums\Relacion;
-use App\Filament\Resources\RepresentativeResource\Pages;
-use App\Filament\Resources\RepresentativeResource\RelationManagers\StudentsRelationManager;
+use App\Filament\Apoderado\Resources\RepresentativeResource\Pages;
+use App\Filament\Apoderado\Resources\RepresentativeResource\RelationManagers;
 use App\Models\Representative;
 use Filament\Forms;
-use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -20,11 +19,6 @@ class RepresentativeResource extends Resource
 
     protected static ?string $navigationIcon = 'heroicon-o-user-group';
     protected static ?string $navigationLabel = 'Apoderados';
-
-    public static function getNavigationBadge(): ?string
-    {
-        return static::getModel()::count();
-    }
 
     public static function form(Form $form): Form
     {
@@ -39,7 +33,7 @@ class RepresentativeResource extends Resource
                     ->prefixIcon('heroicon-o-user-group')
                     ->label('Relación')
                     ->options(collect(Relacion::cases())->pluck('value', 'value'))
-                    ->required(),
+                    ->disabled(),
                 Forms\Components\TextInput::make('phone_number')
                     ->label('Teléfono')
                     ->prefixIcon('heroicon-o-phone')
@@ -62,19 +56,6 @@ class RepresentativeResource extends Resource
                     ->password()
                     ->required()
                     ->maxLength(20),
-                Forms\Components\Select::make('roles')
-                    ->relationship('roles', 'name')
-                    ->multiple()
-                    ->preload()
-                    ->searchable(),
-                SpatieMediaLibraryFileUpload::make('Avatar')
-                    ->label('Avatar')
-                    ->collection('avatars')
-                    ->image()
-                    ->imageEditor()
-                    ->openable()
-                    ->optimize('jpg', 'png')
-                    ->columnSpanFull()
             ]);
     }
 
@@ -87,7 +68,7 @@ class RepresentativeResource extends Resource
                     ->sortable()
                     ->searchable(),
                 Tables\Columns\TextColumn::make('relationship')
-                ->label('Relación')
+                    ->label('Relación')
                     ->badge()
                     ->sortable()
                     ->searchable(),
@@ -117,14 +98,11 @@ class RepresentativeResource extends Resource
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
             ])
-            ->filters([
-                //
-            ])
             ->actions([
                 Tables\Actions\EditAction::make()
-                ->label(''),
+                    ->label(''),
                 Tables\Actions\DeleteAction::make()
-                ->label(''),
+                    ->label(''),
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
@@ -136,7 +114,7 @@ class RepresentativeResource extends Resource
     public static function getRelations(): array
     {
         return [
-            StudentsRelationManager::make()
+         //   StudentsRelationManager::make()
         ];
     }
 

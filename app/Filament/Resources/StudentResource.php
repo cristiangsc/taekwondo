@@ -72,6 +72,11 @@ class StudentResource extends Resource
                             ->password()
                             ->required()
                             ->maxLength(20),
+                        Forms\Components\Select::make('roles')
+                            ->relationship('roles', 'name')
+                            ->multiple()
+                            ->preload()
+                            ->searchable(),
                     ]),
                 Forms\Components\Section::make('Datos de Contacto')
                     ->columns(3)
@@ -102,7 +107,7 @@ class StudentResource extends Resource
                             ->columnSpanFull(),
                     ]),
                 Forms\Components\Section::make('Datos de Inscripción')
-                    ->columns(4)
+                    ->columns(3)
                     ->schema([
                         Forms\Components\Select::make('representative_id')
                             ->prefixIcon('heroicon-o-user')

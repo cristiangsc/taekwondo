@@ -10,97 +10,73 @@ class RepresentativePolicy
 {
     use HandlesAuthorization;
 
-    /**
-     * Determine whether the user can view any models.
-     */
+    /** * Determine whether the user can view any models. */
     public function viewAny(User $user): bool
     {
         return $user->can('view_any_representative');
     }
 
-    /**
-     * Determine whether the user can view the model.
-     */
+    /** * Determine whether the user can view the model. */
     public function view(User $user, Representative $representative): bool
     {
         return $user->can('view_representative');
     }
 
-    /**
-     * Determine whether the user can create models.
-     */
+    /** * Determine whether the user can create models. */
     public function create(User $user): bool
     {
         return $user->can('create_representative');
     }
 
-    /**
-     * Determine whether the user can update the model.
-     */
+    /** * Determine whether the user can update the model. */
     public function update(User $user, Representative $representative): bool
     {
         return $user->can('update_representative');
     }
 
-    /**
-     * Determine whether the user can delete the model.
-     */
+    /** * Determine whether the user can delete the model. */
     public function delete(User $user, Representative $representative): bool
     {
         return $user->can('delete_representative');
     }
 
-    /**
-     * Determine whether the user can bulk delete.
-     */
+    /** * Determine whether the user can bulk delete. */
     public function deleteAny(User $user): bool
     {
         return $user->can('delete_any_representative');
     }
 
-    /**
-     * Determine whether the user can permanently delete.
-     */
+    /** * Determine whether the user can permanently delete. */
     public function forceDelete(User $user, Representative $representative): bool
     {
         return $user->can('force_delete_representative');
     }
 
-    /**
-     * Determine whether the user can permanently bulk delete.
-     */
+    /** * Determine whether the user can permanently bulk delete. */
     public function forceDeleteAny(User $user): bool
     {
         return $user->can('force_delete_any_representative');
     }
 
-    /**
-     * Determine whether the user can restore.
-     */
+    /** * Determine whether the user can restore. */
     public function restore(User $user, Representative $representative): bool
     {
         return $user->can('restore_representative');
     }
 
-    /**
-     * Determine whether the user can bulk restore.
-     */
+    /** * Determine whether the user can bulk restore. */
     public function restoreAny(User $user): bool
     {
         return $user->can('restore_any_representative');
     }
 
-    /**
-     * Determine whether the user can replicate.
-     */
+    /** * Determine whether the user can replicate. */
     public function replicate(User $user, Representative $representative): bool
     {
         return $user->can('replicate_representative');
     }
 
-    /**
-     * Determine whether the user can reorder.
-     */
+    /** * Determine whether the user can reorder. */
     public function reorder(User $user): bool
     {
         return $user->can('reorder_representative');

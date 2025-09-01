@@ -12,11 +12,13 @@ use Illuminate\Notifications\Notifiable;
 use Spatie\MediaLibrary\HasMedia;
 use Spatie\MediaLibrary\InteractsWithMedia;
 use Spatie\MediaLibrary\MediaCollections\Models\Media;
+use Spatie\Permission\Traits\HasRoles;
 
 class Student extends User implements HasMedia
 {
     use InteractsWithMedia;
     use Notifiable;
+    use HasRoles;
 
     protected $fillable = [
         'rut',
