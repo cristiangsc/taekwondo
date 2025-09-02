@@ -39,7 +39,6 @@ class DeportistaPanelProvider extends PanelProvider
             ->discoverWidgets(in: app_path('Filament/Deportista/Widgets'), for: 'App\\Filament\\Deportista\\Widgets')
             ->widgets([
                 Widgets\AccountWidget::class,
-                Widgets\FilamentInfoWidget::class,
             ])
             ->middleware([
                 EncryptCookies::class,

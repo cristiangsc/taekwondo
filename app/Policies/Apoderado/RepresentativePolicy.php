@@ -4,67 +4,69 @@ namespace App\Policies\Apoderado;
 
 use App\Models\Representative;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class RepresentativePolicy
 {
     use HandlesAuthorization;
 
-    public function viewAny(Representative $user): bool
+    // The first parameter must be the authenticated user for the guard.
+    public function viewAny(Authenticatable $user): bool
     {
         return $user->can('view_any_representative');
     }
 
-    public function view(Representative $user, Representative $representative): bool
+    public function view(Authenticatable $user, Representative $representative): bool
     {
         return $user->can('view_representative');
     }
 
-    public function create(Representative $user): bool
+    public function create(Authenticatable $user): bool
     {
         return $user->can('create_representative');
     }
 
-    public function update(Representative $user, Representative $representative): bool
+    public function update(Authenticatable $user, Representative $representative): bool
     {
         return $user->can('update_representative');
     }
 
-    public function delete(Representative $user, Representative $representative): bool
+    public function delete(Authenticatable $user, Representative $representative): bool
     {
         return $user->can('delete_representative');
     }
 
-    public function deleteAny(Representative $user): bool
+    public function deleteAny(Authenticatable $user): bool
     {
         return $user->can('delete_any_representative');
     }
 
-    public function forceDelete(Representative $user, Representative $representative): bool
+    public function forceDelete(Authenticatable $user, Representative $representative): bool
     {
         return $user->can('force_delete_representative');
     }
 
-    public function forceDeleteAny(Representative $user): bool
+    public function forceDeleteAny(Authenticatable $user): bool
     {
         return $user->can('force_delete_any_representative');
     }
 
-    public function restore(Representative $user, Representative $representative): bool
+    public function restore(Authenticatable $user, Representative $representative): bool
     {
         return $user->can('restore_representative');
     }
 
-    public function restoreAny(Representative $user): bool
+    public function restoreAny(Authenticatable $user): bool
     {
         return $user->can('restore_any_representative');
     }
 
-    public function replicate(Representative $user, Representative $representative): bool
+    public function replicate(Authenticatable $user, Representative $representative): bool
     {
         return $user->can('replicate_representative');
     }
 
-    public function reorder(Representative $user): bool
+    public function reorder(Authenticatable $user): bool
     {
         return $user->can('reorder_representative');
     }

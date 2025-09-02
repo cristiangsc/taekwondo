@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Policies;
+namespace App\Policies\Deportista;
 
 use App\Models\Payment;
 use Illuminate\Auth\Access\HandlesAuthorization;
 use Illuminate\Contracts\Auth\Authenticatable;
-
 class PaymentPolicy
 {
     use HandlesAuthorization;
