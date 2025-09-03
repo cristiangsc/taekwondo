@@ -9,11 +9,6 @@ use Filament\Resources\Pages\ListRecords;
 class ListPayments extends ListRecords
 {
     protected static string $resource = PaymentResource::class;
+    protected static ?string $title = 'Pagos de mensualidad';
 
-    protected function getHeaderActions(): array
-    {
-        return [
-            Actions\CreateAction::make(),
-        ];
-    }
 }

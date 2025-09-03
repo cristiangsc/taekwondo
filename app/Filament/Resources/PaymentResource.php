@@ -10,6 +10,8 @@ use Filament\Forms;
 use Filament\Forms\Components\Section;
 use Filament\Forms\Components\SpatieMediaLibraryFileUpload;
 use Filament\Tables\Columns\Summarizers\Sum;
+use Filament\Tables\Columns\TextColumn;
+use Filament\Tables\Filters\SelectFilter;
 use Hugomyb\FilamentMediaAction\Tables\Actions\MediaAction;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
@@ -103,6 +105,12 @@ class PaymentResource extends Resource
                     ->label('Deportista')
                     ->searchable()
                     ->sortable(),
+                TextColumn::make('student.representative.name')
+                    ->label('Apoderado/a')
+                    ->icon('heroicon-o-user')
+                    ->sortable()
+                    ->toggleable(isToggledHiddenByDefault: true)
+                    ->formatStateUsing(fn(?string $state): string => mb_strtoupper($state ?? '', 'UTF-8')),
                 Tables\Columns\TextColumn::make('payment_date')
                     ->label('Fecha de Pago')
                     ->date('d/m/Y')
@@ -148,6 +156,19 @@ class PaymentResource extends Resource
                     ->dateTime()
                     ->sortable()
                     ->toggleable(isToggledHiddenByDefault: true),
+            ])
+            ->filters([
+                SelectFilter::make('anio')
+                    ->label('Año')
+                    ->options(function () {
+                        return Payment::query()
+                            ->select('anio')
+                            ->distinct()
+                            ->orderBy('anio', 'desc')
+                            ->pluck('anio', 'anio')
+                            ->toArray();
+                    })
+                ->default(now()->year)
             ])
             ->defaultSort('payment_date', 'desc')
             ->actions([

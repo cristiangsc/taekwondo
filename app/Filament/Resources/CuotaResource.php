@@ -35,9 +35,6 @@ use Filament\Tables\Filters\SelectFilter;
 use Filament\Tables\Table;
 use Hugomyb\FilamentMediaAction\Tables\Actions\MediaAction;
 
-//use pxlrbt\FilamentExcel\Actions\Tables\ExportBulkAction;
-//use pxlrbt\FilamentExcel\Columns\Column;
-//use pxlrbt\FilamentExcel\Exports\ExcelExport;
 
 
 class CuotaResource extends Resource
@@ -134,7 +131,7 @@ class CuotaResource extends Resource
                     ->searchable()
                     ->formatStateUsing(fn(?string $state): string => mb_strtoupper($state ?? '', 'UTF-8')),
                 //  ->color(fn($record) => $record->student->trashed() ? 'danger' : 'default'),
-                TextColumn::make('student.representative.full_name')
+                TextColumn::make('student.representative.name')
                     ->label('Apoderado/a')
                     ->icon('heroicon-o-user')
                     ->sortable()
