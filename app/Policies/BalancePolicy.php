@@ -2,9 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\User;
+
 use App\Models\Balance;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class BalancePolicy
 {
@@ -13,7 +14,7 @@ class BalancePolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Authenticatable $user): bool
     {
         return $user->can('view_any_balance');
     }
@@ -21,7 +22,7 @@ class BalancePolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Balance $balance): bool
+    public function view(Authenticatable $user, Balance $balance): bool
     {
         return $user->can('view_balance');
     }
@@ -29,7 +30,7 @@ class BalancePolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(Authenticatable $user): bool
     {
         return $user->can('create_balance');
     }
@@ -37,7 +38,7 @@ class BalancePolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Balance $balance): bool
+    public function update(Authenticatable $user, Balance $balance): bool
     {
         return $user->can('update_balance');
     }
@@ -45,7 +46,7 @@ class BalancePolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Balance $balance): bool
+    public function delete(Authenticatable $user, Balance $balance): bool
     {
         return $user->can('delete_balance');
     }
@@ -53,7 +54,7 @@ class BalancePolicy
     /**
      * Determine whether the user can bulk delete.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Authenticatable $user): bool
     {
         return $user->can('delete_any_balance');
     }
@@ -61,7 +62,7 @@ class BalancePolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Balance $balance): bool
+    public function forceDelete(Authenticatable $user, Balance $balance): bool
     {
         return $user->can('force_delete_balance');
     }
@@ -69,7 +70,7 @@ class BalancePolicy
     /**
      * Determine whether the user can permanently bulk delete.
      */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(Authenticatable $user): bool
     {
         return $user->can('force_delete_any_balance');
     }
@@ -77,7 +78,7 @@ class BalancePolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Balance $balance): bool
+    public function restore(Authenticatable $user, Balance $balance): bool
     {
         return $user->can('restore_balance');
     }
@@ -85,7 +86,7 @@ class BalancePolicy
     /**
      * Determine whether the user can bulk restore.
      */
-    public function restoreAny(User $user): bool
+    public function restoreAny(Authenticatable $user): bool
     {
         return $user->can('restore_any_balance');
     }
@@ -93,7 +94,7 @@ class BalancePolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Balance $balance): bool
+    public function replicate(Authenticatable $user, Balance $balance): bool
     {
         return $user->can('replicate_balance');
     }
@@ -101,7 +102,7 @@ class BalancePolicy
     /**
      * Determine whether the user can reorder.
      */
-    public function reorder(User $user): bool
+    public function reorder(Authenticatable $user): bool
     {
         return $user->can('reorder_balance');
     }

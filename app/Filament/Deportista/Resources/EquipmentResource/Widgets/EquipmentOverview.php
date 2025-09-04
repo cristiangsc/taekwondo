@@ -1,25 +1,28 @@
 <?php
 
-namespace App\Filament\Resources\LoanResource\Widgets;
+namespace App\Filament\Deportista\Resources\EquipmentResource\Widgets;
 
 use App\Models\Equipment;
-use App\Models\Loan;
-use App\Models\Student;
 use Filament\Widgets\StatsOverviewWidget as BaseWidget;
 use Filament\Widgets\StatsOverviewWidget\Stat;
+use Illuminate\Support\Facades\DB;
 
-class LoanOverview extends BaseWidget
+class EquipmentOverview extends BaseWidget
 {
     protected function getStats(): array
     {
         $totalEquipment = Equipment::count();
         $availableEquipment = Equipment::where('status', 'disponible')->count();
         $loanedEquipment = Equipment::where('status', 'prestado')->count();
-        $activeLoans = Loan::where('status', 'activo')->count();
-        $overdueLoans = Loan::where('status', 'vencido')
-            ->where('expected_return_date', '<', now())
-            ->count();
-        $activeStudents = Student::all()->count();
+        $equipmentByCategory = Equipment::select('categories.name', DB::raw('count(*) as total'))
+            ->join('categories', 'equipment.category_id', '=', 'categories.id')
+            ->groupBy('categories.name')
+            ->pluck('total', 'name')
+            ->map(function ($total, $name) {
+                return "$name: $total";
+            })
+            ->implode("\n");
+
 
         return [
             Stat::make('Total de Equipos', $totalEquipment)
@@ -37,20 +40,12 @@ class LoanOverview extends BaseWidget
                 ->descriptionIcon('heroicon-m-arrow-right-circle')
                 ->color('warning'),
 
-            Stat::make('Préstamos Activos', $activeLoans)
-                ->description('Préstamos sin devolver')
-                ->descriptionIcon('heroicon-m-arrows-right-left')
+            Stat::make('Por Categoría', '')
+                ->description($equipmentByCategory)
+                ->descriptionIcon('heroicon-m-rectangle-stack')
                 ->color('info'),
 
-            Stat::make('Préstamos Vencidos', $overdueLoans)
-                ->description('Requieren atención')
-                ->descriptionIcon('heroicon-m-exclamation-triangle')
-                ->color('danger'),
 
-            Stat::make('Estudiantes Activos', $activeStudents)
-                ->description('Estudiantes registrados')
-                ->descriptionIcon('heroicon-m-users')
-                ->color('primary'),
         ];
     }
 }

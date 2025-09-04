@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Filament\Resources\BalanceResource\Pages;
+namespace App\Filament\Deportista\Resources\BalanceResource\Pages;
 
-use App\Filament\Resources\BalanceResource;
-use App\Filament\Resources\BalanceResource\Widgets\BalanceStatsWidget;
+use App\Filament\Deportista\Resources\BalanceResource;
+use App\Filament\Deportista\Resources\BalanceResource\Widgets\BalanceStatsWidget;
 use Filament\Resources\Pages\ListRecords;
 
 class ListBalances extends ListRecords

@@ -2,6 +2,7 @@
 
 namespace App\Providers\Filament;
 
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use BezhanSalleh\FilamentShield\FilamentShieldPlugin;
 use Filament\Http\Middleware\AuthenticateSession;
@@ -31,6 +32,7 @@ class AdminPanelProvider extends PanelProvider
             ->sidebarCollapsibleOnDesktop()
             ->profile()
             ->databaseTransactions()
+            ->defaultThemeMode(ThemeMode::Dark)
             ->colors([
                 'danger' => Color::Rose,
                 'gray' => Color::Gray,

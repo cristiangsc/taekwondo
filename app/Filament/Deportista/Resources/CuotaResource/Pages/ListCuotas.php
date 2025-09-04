@@ -3,7 +3,6 @@
 namespace App\Filament\Deportista\Resources\CuotaResource\Pages;
 
 use App\Filament\Deportista\Resources\CuotaResource;
-use Filament\Actions;
 use Filament\Resources\Pages\ListRecords;
 
 class ListCuotas extends ListRecords

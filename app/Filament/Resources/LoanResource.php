@@ -42,18 +42,23 @@ class LoanResource extends Resource
                         Forms\Components\Select::make('equipment_id')
                             ->label('Equipo')
                             ->relationship('equipment','name',
-                                modifyQueryUsing: fn (Builder $query) => $query->where('status', 'disponible')
-                                    ->orWhere('id', fn ($query) =>
-                                    $query->select('equipment_id')
-                                        ->from('loans')
-                                        ->whereColumn('equipment_id', 'equipment.id')
-                                        ->where('id', fn ($q) =>
-                                        $q->select('id')
-                                            ->from('loans')
-                                            ->orderBy('id', 'desc')
-                                            ->limit(1)
-                                        )
-                                    )
+                                modifyQueryUsing: function (Builder $query) {
+                                    // Mostrar solo equipos disponibles; al editar, permitir el equipo actual del préstamo
+                                    $query->where('status', 'disponible');
+
+                                    // Si estamos editando un registro existente, incluir su equipo para que el select sea válido
+                                    if ($record = request()->route('record')) {
+                                        // $record puede ser un modelo o un id; Filament usa la clave {record}
+                                        $loanId = is_object($record) ? $record->getKey() : $record;
+                                        if ($loanId) {
+                                            $query->orWhereIn('id', function ($sub) use ($loanId) {
+                                                $sub->select('equipment_id')
+                                                    ->from('loans')
+                                                    ->where('id', $loanId);
+                                            });
+                                        }
+                                    }
+                                }
                             )
                             ->searchable()
                             ->preload()
@@ -256,7 +261,7 @@ class LoanResource extends Resource
                     ->label('Devolver')
                     ->icon('heroicon-o-arrow-uturn-left')
                     ->color('success')
-                    ->visible(fn(Loan $record): bool => $record->status === 'activo')
+                    ->visible(fn(Loan $record): bool => $record->status != 'devuelto')
                     ->form([
                         Forms\Components\DateTimePicker::make('returned_at')
                             ->label('Fecha y Hora de Devolución')

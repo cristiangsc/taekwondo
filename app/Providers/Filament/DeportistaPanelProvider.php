@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Deportista\Pages\AttendanceReportStudent;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,13 +30,16 @@ class DeportistaPanelProvider extends PanelProvider
             ->path('deportista')
             ->login()
             ->authGuard('student')
+            ->defaultThemeMode(ThemeMode::Dark)
             ->colors([
                 'primary' => Color::Amber,
+                'present' =>Color::Green
             ])
             ->discoverResources(in: app_path('Filament/Deportista/Resources'), for: 'App\\Filament\\Deportista\\Resources')
             ->discoverPages(in: app_path('Filament/Deportista/Pages'), for: 'App\\Filament\\Deportista\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                AttendanceReportStudent::class,
             ])
             ->discoverWidgets(in: app_path('Filament/Deportista/Widgets'), for: 'App\\Filament\\Deportista\\Widgets')
             ->widgets([

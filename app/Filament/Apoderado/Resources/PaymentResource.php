@@ -28,9 +28,7 @@ class PaymentResource extends Resource
         return parent::getEloquentQuery()->whereHas('student', function (Builder $query) {
             $query->where('representative_id', auth()->id());
         });
-
     }
-
 
     public static function table(Table $table): Table
     {

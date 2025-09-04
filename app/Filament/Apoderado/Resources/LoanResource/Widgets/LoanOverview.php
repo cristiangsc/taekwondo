@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Filament\Resources\LoanResource\Widgets;
+namespace App\Filament\Apoderado\Resources\LoanResource\Widgets;
 
 use App\Models\Equipment;
 use App\Models\Loan;

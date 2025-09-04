@@ -2,9 +2,9 @@
 
 namespace App\Policies;
 
-use App\Models\User;
 use App\Models\Equipment;
 use Illuminate\Auth\Access\HandlesAuthorization;
+use Illuminate\Contracts\Auth\Authenticatable;
 
 class EquipmentPolicy
 {
@@ -13,7 +13,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can view any models.
      */
-    public function viewAny(User $user): bool
+    public function viewAny(Authenticatable $user): bool
     {
         return $user->can('view_any_equipment');
     }
@@ -21,7 +21,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can view the model.
      */
-    public function view(User $user, Equipment $equipment): bool
+    public function view(Authenticatable $user, Equipment $equipment): bool
     {
         return $user->can('view_equipment');
     }
@@ -29,7 +29,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can create models.
      */
-    public function create(User $user): bool
+    public function create(Authenticatable $user): bool
     {
         return $user->can('create_equipment');
     }
@@ -37,7 +37,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can update the model.
      */
-    public function update(User $user, Equipment $equipment): bool
+    public function update(Authenticatable $user, Equipment $equipment): bool
     {
         return $user->can('update_equipment');
     }
@@ -45,7 +45,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can delete the model.
      */
-    public function delete(User $user, Equipment $equipment): bool
+    public function delete(Authenticatable $user, Equipment $equipment): bool
     {
         return $user->can('delete_equipment');
     }
@@ -53,7 +53,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can bulk delete.
      */
-    public function deleteAny(User $user): bool
+    public function deleteAny(Authenticatable $user): bool
     {
         return $user->can('delete_any_equipment');
     }
@@ -61,7 +61,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can permanently delete.
      */
-    public function forceDelete(User $user, Equipment $equipment): bool
+    public function forceDelete(Authenticatable $user, Equipment $equipment): bool
     {
         return $user->can('force_delete_equipment');
     }
@@ -69,7 +69,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can permanently bulk delete.
      */
-    public function forceDeleteAny(User $user): bool
+    public function forceDeleteAny(Authenticatable $user): bool
     {
         return $user->can('force_delete_any_equipment');
     }
@@ -77,7 +77,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can restore.
      */
-    public function restore(User $user, Equipment $equipment): bool
+    public function restore(Authenticatable $user, Equipment $equipment): bool
     {
         return $user->can('restore_equipment');
     }
@@ -85,7 +85,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can bulk restore.
      */
-    public function restoreAny(User $user): bool
+    public function restoreAny(Authenticatable $user): bool
     {
         return $user->can('restore_any_equipment');
     }
@@ -93,7 +93,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can replicate.
      */
-    public function replicate(User $user, Equipment $equipment): bool
+    public function replicate(Authenticatable $user, Equipment $equipment): bool
     {
         return $user->can('replicate_equipment');
     }
@@ -101,7 +101,7 @@ class EquipmentPolicy
     /**
      * Determine whether the user can reorder.
      */
-    public function reorder(User $user): bool
+    public function reorder(Authenticatable $user): bool
     {
         return $user->can('reorder_equipment');
     }

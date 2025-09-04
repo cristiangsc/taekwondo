@@ -51,7 +51,7 @@ class Loan extends Model
 
     public function isOverdue(): bool
     {
-        return $this->status === 'activo' && Carbon::now()->isAfter($this->expected_return_date);
+        return $this->status === 'vencido' && Carbon::now()->isAfter($this->expected_return_date);
     }
 
     public function getDaysOverdueAttribute(): int
@@ -60,7 +60,7 @@ class Loan extends Model
             return 0;
         }
 
-        return Carbon::now()->diffInDays($this->expected_return_date);
+        return abs(Carbon::now()->diffInDays($this->expected_return_date));
     }
 
     public function getStatusColorAttribute(): string

@@ -175,7 +175,7 @@ class EquipmentResource extends Resource
                         'prestado' => 'warning',
                         'en_mantenimiento' => 'info',
                         'perdido' => 'danger',
-                        'dañado' => 'danger',
+                        'dañado' => 'present',
                         default => 'secondary'
                     }),
                 Tables\Columns\TextColumn::make('purchase_price')

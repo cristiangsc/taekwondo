@@ -2,6 +2,8 @@
 
 namespace App\Providers\Filament;
 
+use App\Filament\Apoderado\Pages\AttendanceReportRepresentative;
+use Filament\Enums\ThemeMode;
 use Filament\Http\Middleware\Authenticate;
 use Filament\Http\Middleware\AuthenticateSession;
 use Filament\Http\Middleware\DisableBladeIconComponents;
@@ -28,13 +30,16 @@ class ApoderadoPanelProvider extends PanelProvider
             ->path('apoderado')
             ->login()
             ->authGuard('representative')
+            ->defaultThemeMode(ThemeMode::Dark)
             ->colors([
                 'primary' => Color::Amber,
+                'present' =>Color::Green
             ])
             ->discoverResources(in: app_path('Filament/Apoderado/Resources'), for: 'App\\Filament\\Apoderado\\Resources')
             ->discoverPages(in: app_path('Filament/Apoderado/Pages'), for: 'App\\Filament\\Apoderado\\Pages')
             ->pages([
                 Pages\Dashboard::class,
+                AttendanceReportRepresentative::class
             ])
             ->discoverWidgets(in: app_path('Filament/Apoderado/Widgets'), for: 'App\\Filament\\Apoderado\\Widgets')
             ->widgets([
