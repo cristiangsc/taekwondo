@@ -20,6 +20,10 @@ class EquipmentResource extends Resource
     protected static ?string $navigationGroup = 'Inventario';
     protected static ?int $navigationSort = 2;
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function table(Table $table): Table
     {

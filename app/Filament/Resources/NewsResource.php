@@ -28,6 +28,10 @@ class NewsResource extends Resource
     protected static ?string $navigationGroup = 'Página web';
     protected static ?string $breadcrumb = 'Noticias';
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::count();
+    }
 
     public static function form(Form $form): Form
     {

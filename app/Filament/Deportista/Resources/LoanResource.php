@@ -21,6 +21,7 @@ class LoanResource extends Resource
     protected static ?int $navigationSort = 2;
 
 
+
     public static function table(Table $table): Table
     {
         return $table
@@ -140,6 +141,13 @@ class LoanResource extends Resource
             ->update(['status' => 'vencido']);
 
         return $query;
+    }
+
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::query()
+            ->where('student_id', auth()->id())
+            ->count();
     }
 
 }

@@ -23,6 +23,14 @@ class ExamResource extends Resource
         return parent::getEloquentQuery()->where('student_id', auth()->id());
     }
 
+    public static function getNavigationBadge(): ?string
+    {
+        return static::getModel()::query()
+            ->where('student_id', auth()->id())
+            ->count();
+    }
+
+
     public static function table(Table $table): Table
     {
         return $table

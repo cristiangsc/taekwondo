@@ -1,14 +1,15 @@
 <?php
 
-namespace App\Filament\Resources;
+namespace App\Filament\Deportista\Resources;
 
-use App\Filament\Resources\TestimonialResource\Pages;
+use App\Filament\Deportista\Resources\TestimonialResource\Pages;
 use App\Models\Testimonial;
 use Filament\Forms;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
+use Illuminate\Database\Eloquent\Builder;
 
 
 class TestimonialResource extends Resource
@@ -20,10 +21,16 @@ class TestimonialResource extends Resource
     protected static ?string $breadcrumb = 'Testimonios';
     protected static ?string $navigationGroup = 'Página web';
 
+
+    public static function getEloquentQuery(): Builder
+    {
+        return parent::getEloquentQuery()->where('student_id', auth()->id());
+    }
+
     public static function getNavigationBadge(): ?string
     {
         return static::getModel()::query()
-            ->where('is_approved', false)
+            ->where('student_id', auth()->id())
             ->count();
     }
 
@@ -31,22 +38,15 @@ class TestimonialResource extends Resource
     {
         return $form
             ->schema([
-                Forms\Components\Select::make('student_id')
+                Forms\Components\TextInput::make('student_name')
                     ->label('Deportista')
-                    ->placeholder('Seleccione deportista')
-                    ->prefixIcon('gmdi-sports-martial-arts-o')
-                    ->relationship('student', 'full_name')
-                    ->required(),
+                    ->default(auth()->user()->full_name)
+                    ->disabled()
+                    ->dehydrated(false),
                 Forms\Components\Textarea::make('content')
                     ->label('Testimonio')
                     ->required()
-                    ->columnSpanFull(),
-                Forms\Components\Toggle::make('is_approved')
-                    ->label('Aprobado')
-                    //->visible(fn () => auth()->user()->hasRole('admin'))
-                    ->default(false)
-                    ->required(),
-
+                    ->columnSpanFull()
             ]);
     }
 
@@ -81,14 +81,10 @@ class TestimonialResource extends Resource
             ])->defaultSort('created_at', 'desc')
             ->actions([
                 Tables\Actions\EditAction::make()
-                    ->label(''),
+                    ->label('')
+                    ->visible(fn($record) => !$record->is_approved),
                 Tables\Actions\DeleteAction::make()
                     ->label(''),
-            ])
-            ->bulkActions([
-                Tables\Actions\BulkActionGroup::make([
-                    Tables\Actions\DeleteBulkAction::make(),
-                ]),
             ]);
     }
 
@@ -100,4 +96,10 @@ class TestimonialResource extends Resource
             'edit' => Pages\EditTestimonial::route('/{record}/edit'),
         ];
     }
+
+    public static function canEdit($record): bool
+    {
+        return !$record->is_approved;
+    }
+
 }
